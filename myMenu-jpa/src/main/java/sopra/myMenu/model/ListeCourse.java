@@ -28,6 +28,15 @@ public class ListeCourse {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public AjustementQuantite getAjustementQuantite() {
+		return ajustementQuantite;
+	}
+
+	public void setAjustementQuantite(AjustementQuantite ajustementQuantite) {
+		this.ajustementQuantite = ajustementQuantite;
+	}
+	
 	
 	
 }

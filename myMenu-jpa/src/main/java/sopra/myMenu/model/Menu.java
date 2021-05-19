@@ -21,10 +21,10 @@ public class Menu {
 		private Long id;
 		@Column(name = "periode")
 		private Duration periode;
-		@OneToMany(mappedBy = "repas")
+		@OneToMany(mappedBy = "menu")
 		private List<Repas> repas = new ArrayList<Repas>();
 		@ManyToOne
-		@JoinColumn(name = "planning")
+		@JoinColumn(name = "planning_id")
 		private Planning planning;
 		
 		//private final Duration = Duration.of(1, WEEKS);
@@ -58,6 +58,24 @@ public class Menu {
 
 		public void setPeriode(Duration periode) {
 			this.periode = periode;
+		}
+
+		public List<Repas> getRepas() {
+			return repas;
+		}
+
+		public void setRepas(List<Repas> repas) {
+			this.repas = repas;
+		}
+
+		public Planning getPlanning() {
+			return planning;
+		}
+
+		public void setPlanning(Planning planning) {
+			this.planning = planning;
 		}	
+		
+		
 		
 }

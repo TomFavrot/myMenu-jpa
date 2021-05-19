@@ -1,11 +1,9 @@
 package sopra.myMenu.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Magasin")
-public class Magasin implements Serializable {
+public class Magasin {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -56,6 +54,22 @@ public class Magasin implements Serializable {
 	}
 	public void setSiret(String siret) {
 		this.siret = siret;
+	}
+
+	public MagasinIngredient getMagasinIngredient() {
+		return magasinIngredient;
+	}
+
+	public void setMagasinIngredient(MagasinIngredient magasinIngredient) {
+		this.magasinIngredient = magasinIngredient;
+	}
+
+	public List<Adresse> getAdresses() {
+		return adresses;
+	}
+
+	public void setAdresses(List<Adresse> adresses) {
+		this.adresses = adresses;
 	}
 	
 	
