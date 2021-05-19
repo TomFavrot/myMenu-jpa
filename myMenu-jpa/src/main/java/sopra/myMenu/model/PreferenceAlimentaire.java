@@ -1,7 +1,8 @@
 package sopra.myMenu.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,7 +15,7 @@ public class PreferenceAlimentaire {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(name = "Type_Alimentation")
+	@Enumerated(EnumType.STRING)
 	private TypeAlimentation typeAlimentation;
 	@ManyToOne
 	@JoinColumn(name = "Utilisateur_Id")

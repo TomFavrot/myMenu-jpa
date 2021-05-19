@@ -35,16 +35,16 @@ import sopra.myMenu.repository.jpa.UtilisateurRepositoryJpa;
 public class Application {
 	
 	private static Application instance = null;
-	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("myMenu-jpa");
+	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("mymenu-jpa");
 	
 	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
-	private final IAjustementQuantiteRepository ajustquantitRepo= new AjustementQuantiteRepositoryJpa(); 
+	private final IAjustementQuantiteRepository ajustQuantitRepo= new AjustementQuantiteRepositoryJpa(); 
 	private final IIngredientRepository ingredientRepo = new IngredientRepositoryJpa();
-	private final IListeCourseRepository listecourseRepo = new ListeCourseRepositoryJpa();
-	private final IMagasinIngredientRepository magasiningredRepo = new MagasinIngredientRepositoryJpa();
+	private final IListeCourseRepository listeCourseRepo = new ListeCourseRepositoryJpa();
+	private final IMagasinIngredientRepository magasinIngredRepo = new MagasinIngredientRepositoryJpa();
 	private final IMagasinRepository magasinRepo = new MagasinRepositoryJpa();
 	private final IPlatRepository platRepo = new PlatRepositoryJpa();
-	private final IPreferenceAlimentaireRepository preferencealimRepo = new PreferenceAlimentaireRepositoryJpa() ;
+	private final IPreferenceAlimentaireRepository preferenceAlimRepo = new PreferenceAlimentaireRepositoryJpa() ;
 	private final IRecetteRepository recetteRepo = new RecetteRepositoryJpa() ;
 	private final IUtilisateurRepository utilisateurRepo = new UtilisateurRepositoryJpa();
 	private final IPlanningRepository planningRepo = new PlanningRepositoryJpa();
@@ -73,7 +73,7 @@ public class Application {
 	}
 
 	public IAjustementQuantiteRepository getAjustquantitRepo() {
-		return ajustquantitRepo;
+		return ajustQuantitRepo;
 	}
 
 	public IIngredientRepository getIngredientRepo() {
@@ -81,11 +81,11 @@ public class Application {
 	}
 
 	public IListeCourseRepository getListecourseRepo() {
-		return listecourseRepo;
+		return listeCourseRepo;
 	}
 
 	public IMagasinIngredientRepository getMagasiningredRepo() {
-		return magasiningredRepo;
+		return magasinIngredRepo;
 	}
 
 	public IMagasinRepository getMagasinRepo() {
@@ -97,7 +97,7 @@ public class Application {
 	}
 
 	public IPreferenceAlimentaireRepository getPreferencealimRepo() {
-		return preferencealimRepo;
+		return preferenceAlimRepo;
 	}
 
 	public IRecetteRepository getRecetteRepo() {
