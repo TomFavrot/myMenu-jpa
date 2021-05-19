@@ -1,6 +1,5 @@
 package sopra.myMenu.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,12 +13,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="MagasinIngredient")
-public class MagasinIngredient implements Serializable {
+public class MagasinIngredient {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Column(name = "prix")
-	private float prix;
+	private Float prix;
 	@Column(name = "marque")
 	private String marque;
 	@Column(name = "datePeremption")
@@ -28,7 +27,7 @@ public class MagasinIngredient implements Serializable {
 	private Boolean produitLocal;
 	@Column(name = "bio")
 	private Boolean bio;
-	@OneToMany(mappedBy = "magasinIngredients")
+	@OneToMany(mappedBy = "magasinIngredient")
 	private List<Magasin> magasins=new ArrayList<Magasin>();
 	@OneToMany(mappedBy = "magasinIngredient")
 	private List<Ingredient> ingredients=new ArrayList<Ingredient>();
@@ -39,7 +38,7 @@ public class MagasinIngredient implements Serializable {
 	}
 
 
-	public MagasinIngredient(float prix, String marque, Date datePeremption, Boolean produitLocal, Boolean bio) {
+	public MagasinIngredient(Float prix, String marque, Date datePeremption, Boolean produitLocal, Boolean bio) {
 		super();
 		this.prix = prix;
 		this.marque = marque;
@@ -54,7 +53,7 @@ public class MagasinIngredient implements Serializable {
 	}
 
 
-	public float getPrix() {
+	public Float getPrix() {
 		return prix;
 	}
 
@@ -84,7 +83,7 @@ public class MagasinIngredient implements Serializable {
 	}
 
 
-	public void setPrix(float prix) {
+	public void setPrix(Float prix) {
 		this.prix = prix;
 	}
 
@@ -106,6 +105,26 @@ public class MagasinIngredient implements Serializable {
 
 	public void setBio(Boolean bio) {
 		this.bio = bio;
+	}
+
+
+	public List<Magasin> getMagasins() {
+		return magasins;
+	}
+
+
+	public void setMagasins(List<Magasin> magasins) {
+		this.magasins = magasins;
+	}
+
+
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 	
 	

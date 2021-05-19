@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 
 @Entity
 @Table(name = "plat")
@@ -54,6 +52,26 @@ public class Plat {
 
 	public void setNombrePersonne(int nombrePersonne) {
 		this.nombrePersonne = nombrePersonne;
+	}
+
+
+	public Repas getRepas() {
+		return repas;
+	}
+
+
+	public void setRepas(Repas repas) {
+		this.repas = repas;
+	}
+
+
+	public Recette getRecette() {
+		return recette;
+	}
+
+
+	public void setRecette(Recette recette) {
+		this.recette = recette;
 	}
 	
 	
