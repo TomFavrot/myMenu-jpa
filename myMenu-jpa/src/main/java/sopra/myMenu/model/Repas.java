@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,7 +21,7 @@ public class Repas {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(name = "typeRepas")
+	@Enumerated(EnumType.STRING)
 	private TypeRepas typeRepas;
 	@ManyToOne
 	@JoinColumn(name = "menu")

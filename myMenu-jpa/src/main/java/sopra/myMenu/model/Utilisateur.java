@@ -19,7 +19,7 @@ public class Utilisateur {
 	private String nom;
 	@Column(name = "Prenom")
 	private String prenom;
-	@Column(name = "Poids(kg)")
+	@Column(name = "Poids_kg")
 	private Float poids;
 	@Column(name = "Taille")
 	private Float taille;
