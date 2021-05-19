@@ -4,9 +4,3 @@ myMenu-jpa/.classpath
 myMenu-jpa/.project
 
 myMenu-jpa/.settings/
-
-myMenu-jpa/target/classes/META-INF/
-
-myMenu-jpa/target/classes/sopra/myMenu/model/Exemple.class
-
-myMenu-jpa/target/test-classes/sopra/myMenu/test/MainTest.class
