@@ -1,16 +1,18 @@
 package sopra.myMenu.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import sopra.myMenu.Application;
-
+import sopra.myMenu.model.Ingredient;
+import sopra.myMenu.model.ProduitSaison;
 import sopra.myMenu.model.Recette;
 import sopra.myMenu.model.TypeAlimentation;
-
-
+import sopra.myMenu.model.TypeProduit;
+import sopra.myMenu.repository.IIngredientRepository;
 import sopra.myMenu.repository.IRecetteRepository;
 
 
@@ -19,10 +21,11 @@ public class TestRecette {
 	public void RecetteCreate() {
 		
 		IRecetteRepository recRepo = Application.getInstance().getRecetteRepo();
+	
 		
 		
 		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
-				
+			
 			
 		rec1 = recRepo.save(rec1);
 		
@@ -35,7 +38,7 @@ public class TestRecette {
 		Assert.assertEquals(TypeAlimentation.HALAL, recFind.getTypeRecette());
 		
 		
-				
+						
 		recRepo.delete(rec1);
 		
 		
@@ -56,6 +59,7 @@ public class TestRecette {
 		rec1.setNombrePers(8);
 		rec1.setTotalCalories(500);
 		rec1.setTypeRecette(TypeAlimentation.NONE);
+		
 			
 		rec1 = recRepo.save(rec1);
 		Recette recFind = recRepo.findById(rec1.getId());
