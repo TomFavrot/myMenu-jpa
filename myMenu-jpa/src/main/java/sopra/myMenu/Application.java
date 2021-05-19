@@ -80,7 +80,7 @@ public class Application {
 		return ingredientRepo;
 	}
 
-	public IListeCourseRepository getListecourseRepo() {
+	public IListeCourseRepository getListeCourseRepo() {
 		return listeCourseRepo;
 	}
 

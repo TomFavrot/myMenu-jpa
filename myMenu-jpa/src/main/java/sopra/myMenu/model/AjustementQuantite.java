@@ -17,7 +17,7 @@ public class AjustementQuantite {
 	@GeneratedValue
 	private Long id;
 	@Column(name = "quantiteModifiee")
-	private float quantiteModifiee;
+	private Float quantiteModifiee;
 	@OneToMany(mappedBy = "ajustementQuantite")
 	private List<ListeCourse> listeCourse=new ArrayList<ListeCourse>();
 	@OneToMany(mappedBy = "ajustementQuantite")
@@ -61,9 +61,7 @@ public class AjustementQuantite {
 		this.ingredients = ingredients;
 	}
 
-	public void setQuantiteModifiee(float quantiteModifiee) {
-		this.quantiteModifiee = quantiteModifiee;
-	}
+	
 	
 	
 	
