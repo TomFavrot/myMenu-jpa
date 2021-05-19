@@ -19,8 +19,8 @@ public class AjustementQuantite {
 	@Column(name = "quantiteModifiee")
 	private float quantiteModifiee;
 	@OneToMany(mappedBy = "ajustementQuantite")
-	private List<ListeCourses> listeCourses=new ArrayList<ListeCourses>();
-	@OneToMany(mappedBy = "AjustementQuantite")
+	private List<ListeCourse> listeCourse=new ArrayList<ListeCourse>();
+	@OneToMany(mappedBy = "ajustementQuantite")
 	private List<Ingredient> ingredients=new ArrayList<Ingredient>();
 	
 	
