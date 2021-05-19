@@ -1,4 +1,4 @@
-package sopra.revue.test;
+package sopra.myMenu.test;
 
 public class MainTest {
 
