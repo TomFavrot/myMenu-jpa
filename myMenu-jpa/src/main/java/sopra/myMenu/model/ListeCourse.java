@@ -8,8 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ListeCourses")
-public class ListeCourses {
+@Table(name="ListeCourse")
+public class ListeCourse {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -17,11 +17,7 @@ public class ListeCourses {
 	@JoinColumn(name = "AjustementQuantite_id") 
 	private AjustementQuantite ajustementQuantite;
 	
-	
-	
-	
-	
-	public ListeCourses() {
+	public ListeCourse() {
 		super();
 	}
 

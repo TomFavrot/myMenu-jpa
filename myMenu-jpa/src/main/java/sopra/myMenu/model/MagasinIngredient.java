@@ -30,7 +30,7 @@ public class MagasinIngredient implements Serializable {
 	private Boolean bio;
 	@OneToMany(mappedBy = "magasinIngredients")
 	private List<Magasin> magasins=new ArrayList<Magasin>();
-	@OneToMany(mappedBy = "ingredient")
+	@OneToMany(mappedBy = "magasinIngredient")
 	private List<Ingredient> ingredients=new ArrayList<Ingredient>();
 	
 	
