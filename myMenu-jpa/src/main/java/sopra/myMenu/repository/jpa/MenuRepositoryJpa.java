@@ -9,9 +9,10 @@ import javax.persistence.TypedQuery;
 
 import sopra.myMenu.Application;
 import sopra.myMenu.model.Menu;
+import sopra.myMenu.repository.IMenuRepository;
 
 
-public class MenuRepositoryJpa {
+public class MenuRepositoryJpa implements IMenuRepository {
 
 public List<Menu> findAll() {
 		
