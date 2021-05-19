@@ -5,6 +5,8 @@ myMenu-jpa/.project
 
 myMenu-jpa/.settings/
 
+myMenu-jpa/bin/
+
 myMenu-jpa/target/classes/META-INF/
 
 myMenu-jpa/target/classes/sopra/myMenu/model/Exemple.class
