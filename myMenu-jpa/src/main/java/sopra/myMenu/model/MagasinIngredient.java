@@ -28,7 +28,7 @@ public class MagasinIngredient implements Serializable {
 	private Boolean produitLocal;
 	@Column(name = "bio")
 	private Boolean bio;
-	@OneToMany(mappedBy = "magasinIngredients")
+	@OneToMany(mappedBy = "magasinIngredient")
 	private List<Magasin> magasins=new ArrayList<Magasin>();
 	@OneToMany(mappedBy = "magasinIngredient")
 	private List<Ingredient> ingredients=new ArrayList<Ingredient>();

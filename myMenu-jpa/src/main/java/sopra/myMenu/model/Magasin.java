@@ -26,7 +26,7 @@ public class Magasin implements Serializable {
 	private String siret;	
 	@ManyToOne
 	@JoinColumn(name = "MagasinIngredient_id") 
-	private MagasinIngredient magasinIngredients;
+	private MagasinIngredient magasinIngredient;
 	@OneToMany(mappedBy="magasin")
 	private List<Adresse> adresses=new ArrayList<Adresse>();
 	
