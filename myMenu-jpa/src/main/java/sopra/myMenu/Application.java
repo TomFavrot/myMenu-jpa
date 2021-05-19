@@ -17,26 +17,40 @@ import sopra.myMenu.repository.IPreferenceAlimentaireRepository;
 import sopra.myMenu.repository.IRecetteRepository;
 import sopra.myMenu.repository.IRepasRepository;
 import sopra.myMenu.repository.IUtilisateurRepository;
+import sopra.myMenu.repository.jpa.AdresseRepositoryJpa;
+import sopra.myMenu.repository.jpa.AjustementQuantiteRepositoryJpa;
+import sopra.myMenu.repository.jpa.IngredientRepositoryJpa;
+import sopra.myMenu.repository.jpa.ListeCourseRepositoryJpa;
+import sopra.myMenu.repository.jpa.MagasinIngredientRepositoryJpa;
+import sopra.myMenu.repository.jpa.MagasinRepositoryJpa;
+import sopra.myMenu.repository.jpa.MenuRepositoryJpa;
+import sopra.myMenu.repository.jpa.ObjectifRepositoryJpa;
+import sopra.myMenu.repository.jpa.PlanningRepositoryJpa;
+import sopra.myMenu.repository.jpa.PlatRepositoryJpa;
+import sopra.myMenu.repository.jpa.PreferenceAlimentaireRepositoryJpa;
+import sopra.myMenu.repository.jpa.RecetteRepositoryJpa;
+import sopra.myMenu.repository.jpa.RepasRepositoryJpa;
+import sopra.myMenu.repository.jpa.UtilisateurRepositoryJpa;
 
 public class Application {
 	
 	private static Application instance = null;
-	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("formation-jpa");
+	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("mymenu-jpa");
 	
-	private final IAdresseRepository adresseRepo;
-	private final IAjustementQuantiteRepository ajustquantitRepo;
-	private final IIngredientRepository ingredientRepo;
-	private final IListeCourseRepository listecourseRepo;
-	private final IMagasinIngredientRepository magasiningredRepo;
-	private final IMagasinRepository magasinRepo;
-	private final IPlatRepository platRepo;
-	private final IPreferenceAlimentaireRepository preferencealimRepo;
-	private final IRecetteRepository recetteRepo;
-	private final IUtilisateurRepository utilisateurRepo;
-	private final IPlanningRepository planningRepo;
-	private final IObjectifRepository objectifRepo;
-	private final IMenuRepository menuRepo;
-	private final IRepasRepository repasRepo;
+	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
+	private final IAjustementQuantiteRepository ajustQuantitRepo= new AjustementQuantiteRepositoryJpa(); 
+	private final IIngredientRepository ingredientRepo = new IngredientRepositoryJpa();
+	private final IListeCourseRepository listeCourseRepo = new ListeCourseRepositoryJpa();
+	private final IMagasinIngredientRepository magasinIngredRepo = new MagasinIngredientRepositoryJpa();
+	private final IMagasinRepository magasinRepo = new MagasinRepositoryJpa();
+	private final IPlatRepository platRepo = new PlatRepositoryJpa();
+	private final IPreferenceAlimentaireRepository preferenceAlimRepo = new PreferenceAlimentaireRepositoryJpa() ;
+	private final IRecetteRepository recetteRepo = new RecetteRepositoryJpa() ;
+	private final IUtilisateurRepository utilisateurRepo = new UtilisateurRepositoryJpa();
+	private final IPlanningRepository planningRepo = new PlanningRepositoryJpa();
+	private final IObjectifRepository objectifRepo = new ObjectifRepositoryJpa() ;
+	private final IMenuRepository menuRepo = new MenuRepositoryJpa();
+	private final IRepasRepository repasRepo = new RepasRepositoryJpa();
 	
 	private Application() {
 
@@ -59,7 +73,7 @@ public class Application {
 	}
 
 	public IAjustementQuantiteRepository getAjustquantitRepo() {
-		return ajustquantitRepo;
+		return ajustQuantitRepo;
 	}
 
 	public IIngredientRepository getIngredientRepo() {
@@ -67,11 +81,11 @@ public class Application {
 	}
 
 	public IListeCourseRepository getListecourseRepo() {
-		return listecourseRepo;
+		return listeCourseRepo;
 	}
 
 	public IMagasinIngredientRepository getMagasiningredRepo() {
-		return magasiningredRepo;
+		return magasinIngredRepo;
 	}
 
 	public IMagasinRepository getMagasinRepo() {
@@ -83,7 +97,7 @@ public class Application {
 	}
 
 	public IPreferenceAlimentaireRepository getPreferencealimRepo() {
-		return preferencealimRepo;
+		return preferenceAlimRepo;
 	}
 
 	public IRecetteRepository getRecetteRepo() {
