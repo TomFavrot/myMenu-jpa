@@ -25,7 +25,7 @@ public class IngredientRepositoryJpa implements IIngredientRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Ingredient> query = em.createQuery("select e from Evaluation e", Ingredient.class);
+			TypedQuery<Ingredient> query = em.createQuery("select i from Ingredient i", Ingredient.class);
 
 			ingredients = query.getResultList();
 
