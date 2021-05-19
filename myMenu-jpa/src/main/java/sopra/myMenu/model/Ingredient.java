@@ -76,12 +76,12 @@ public class Ingredient {
 	}
 
 
-	public float getQuantite() {
+	public Float getQuantite() {
 		return quantite;
 	}
 
 
-	public void setQuantite(float quantite) {
+	public void setQuantite(Float quantite) {
 		this.quantite = quantite;
 	}
 
@@ -106,14 +106,49 @@ public class Ingredient {
 	}
 
 
-	public float getNombreCalories100g() {
+	public Float getNombreCalories100g() {
 		return nombreCalories100g;
 	}
 
 
-	public void setNombreCalories100g(float nombreCalories100g) {
+	public void setNombreCalories100g(Float nombreCalories100g) {
 		this.nombreCalories100g = nombreCalories100g;
 	}
+
+	public List<Recette> getRecettes() {
+		return recettes;
+	}
+
+
+	public void setRecettes(List<Recette> recettes) {
+		this.recettes = recettes;
+	}
+
+
+	public AjustementQuantite getAjustementQuantite() {
+		return ajustementQuantite;
+	}
+
+
+	public void setAjustementQuantite(AjustementQuantite ajustementQuantite) {
+		this.ajustementQuantite = ajustementQuantite;
+	}
+
+
+	public MagasinIngredient getMagasinIngredient() {
+		return magasinIngredient;
+	}
+
+
+	public void setMagasinIngredient(MagasinIngredient magasinIngredient) {
+		this.magasinIngredient = magasinIngredient;
+	}
+
+
+	
+
+
+	
 	
 	
 	

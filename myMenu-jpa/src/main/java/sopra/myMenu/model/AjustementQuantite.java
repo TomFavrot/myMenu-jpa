@@ -44,6 +44,28 @@ public class AjustementQuantite {
 	public void setQuantiteModifiee(Float quantiteModifiee) {
 		this.quantiteModifiee = quantiteModifiee;
 	}
+
+	public List<ListeCourse> getListeCourse() {
+		return listeCourse;
+	}
+
+	public void setListeCourse(List<ListeCourse> listeCourse) {
+		this.listeCourse = listeCourse;
+	}
+
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public void setQuantiteModifiee(float quantiteModifiee) {
+		this.quantiteModifiee = quantiteModifiee;
+	}
+	
+	
 	
 	
 

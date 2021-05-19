@@ -24,7 +24,7 @@ public class Repas {
 	@ManyToOne
 	@JoinColumn(name = "menu")
 	private Menu menu;
-	@OneToMany(mappedBy = "plat")
+	@OneToMany(mappedBy = "repas")
 	private List<Plat> plats = new ArrayList<Plat>();
 	
 	public Repas() {
@@ -57,5 +57,23 @@ public class Repas {
 	public void setTypeRepas(TypeRepas typeRepas) {
 		this.typeRepas = typeRepas;
 	}
+
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+
+	public List<Plat> getPlats() {
+		return plats;
+	}
+
+	public void setPlats(List<Plat> plats) {
+		this.plats = plats;
+	}
+	
+	
 	
 }
