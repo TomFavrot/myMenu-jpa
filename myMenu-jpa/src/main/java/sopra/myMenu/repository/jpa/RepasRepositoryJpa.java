@@ -9,8 +9,9 @@ import javax.persistence.TypedQuery;
 
 import sopra.myMenu.Application;
 import sopra.myMenu.model.Repas;
+import sopra.myMenu.repository.IRepasRepository;
 
-public class RepasRepositoryJpa {
+public class RepasRepositoryJpa implements IRepasRepository {
 
 public List<Repas> findAll() {
 		
