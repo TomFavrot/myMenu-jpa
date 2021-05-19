@@ -35,7 +35,7 @@ import sopra.myMenu.repository.jpa.UtilisateurRepositoryJpa;
 public class Application {
 	
 	private static Application instance = null;
-	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("myMenu-jpa");
+	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("mymenu-jpa");
 	
 	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
 	private final IAjustementQuantiteRepository ajustquantitRepo= new AjustementQuantiteRepositoryJpa(); 
