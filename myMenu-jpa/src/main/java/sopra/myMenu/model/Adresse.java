@@ -118,6 +118,12 @@ public class Adresse {
 	public void setMagasin(Magasin magasin) {
 		this.magasin = magasin;
 	}
+
+	@Override
+	public String toString() {
+		return "Adresse [rue=" + rue + ", complement=" + complement + ", codePostal=" + codePostal + ", ville=" + ville
+				+ ", pays=" + pays + "]";
+	}
 	
 	
 	

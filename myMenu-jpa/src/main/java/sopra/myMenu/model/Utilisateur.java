@@ -1,10 +1,13 @@
 package sopra.myMenu.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -19,24 +22,24 @@ public class Utilisateur {
 	private String nom;
 	@Column(name = "Prenom")
 	private String prenom;
-	@Column(name = "Poids(kg)")
+	@Column(name = "Poids_kg")
 	private Float poids;
 	@Column(name = "Taille")
 	private Float taille;
 	@OneToMany(mappedBy="utilisateur")
-	private List<PreferenceAlimentaire> preferencesAlimentaires;
+	private List<PreferenceAlimentaire> preferencesAlimentaires = new ArrayList<PreferenceAlimentaire>();
 	@Column(name = "Date_Naissance")
 	private Date dateNaissance;
-	@Column(name = "Genre")
+	@Enumerated(EnumType.STRING)
 	private Genre genre;
 	@Column(name = "IMC")
 	private Float imc;
-	@Column(name = "Activite_Physique")
+	@Enumerated(EnumType.STRING)
 	private PhysicalActivity physicalActivity;
 	@OneToMany(mappedBy = "utilisateur")
-	private List<Adresse> adresses;
+	private List<Adresse> adresses = new ArrayList<Adresse>();
 	@OneToMany(mappedBy = "utilisateur")
-	private List<Planning> plannings;
+	private List<Planning> plannings = new ArrayList<Planning>();
 	
 	
 	public Utilisateur() {
@@ -155,7 +158,14 @@ public class Utilisateur {
 	public void setPlannings(List<Planning> plannings) {
 		this.plannings = plannings;
 	}
-
+	
+	public void addAdresse(Adresse adr ) {
+		adresses.add(adr);
+	}
+	
+	public void addPreferenceAlimentaire(PreferenceAlimentaire prefAlim ) {
+		preferencesAlimentaires.add(prefAlim);
+	}
 	
 	
 	
