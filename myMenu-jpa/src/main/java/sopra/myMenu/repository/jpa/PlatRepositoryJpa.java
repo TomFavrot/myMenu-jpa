@@ -27,7 +27,7 @@ public class PlatRepositoryJpa implements IPlatRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Plat> query = em.createQuery("select e from Evaluation e", Plat.class);
+			TypedQuery<Plat> query = em.createQuery("select p from Plat p", Plat.class);
 
 			plats = query.getResultList();
 
