@@ -25,7 +25,7 @@ public class RecetteRepositoryJpa implements IRecetteRepository{
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Recette> query = em.createQuery("select e from Evaluation e", Recette.class);
+			TypedQuery<Recette> query = em.createQuery("select r from Recette r", Recette.class);
 
 			recettes = query.getResultList();
 
