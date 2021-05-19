@@ -37,20 +37,20 @@ public class Application {
 	private static Application instance = null;
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("myMenu-jpa");
 	
-	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
-	private final IAjustementQuantiteRepository ajustquantitRepo= new AjustementQuantiteRepositoryJpa(); 
-	private final IIngredientRepository ingredientRepo = new IngredientRepositoryJpa();
-	private final IListeCourseRepository listecourseRepo = new ListeCourseRepositoryJpa();
-	private final IMagasinIngredientRepository magasiningredRepo = new MagasinIngredientRepositoryJpa();
-	private final IMagasinRepository magasinRepo = new MagasinRepositoryJpa();
-	private final IPlatRepository platRepo = new PlatRepositoryJpa();
-	private final IPreferenceAlimentaireRepository preferencealimRepo = new PreferenceAlimentaireRepositoryJpa() ;
-	private final IRecetteRepository recetteRepo = new RecetteRepositoryJpa() ;
-	private final IUtilisateurRepository utilisateurRepo = new UtilisateurRepositoryJpa();
-	private final IPlanningRepository planningRepo = new PlanningRepositoryJpa();
-	private final IObjectifRepository objectifRepo = new ObjectifRepositoryJpa() ;
-	private final IMenuRepository menuRepo = new MenuRepositoryJpa();
-	private final IRepasRepository repasRepo = new RepasRepositoryJpa();
+	private final IAdresseRepository adresseRepo;
+	private final IAjustementQuantiteRepository ajustquantitRepo; 
+	private final IIngredientRepository ingredientRepo;
+	private final IListeCourseRepository listecourseRepo;
+	private final IMagasinIngredientRepository magasiningredRepo;
+	private final IMagasinRepository magasinRepo;
+	private final IPlatRepository platRepo;
+	private final IPreferenceAlimentaireRepository preferencealimRepo;
+	private final IRecetteRepository recetteRepo;
+	private final IUtilisateurRepository utilisateurRepo;
+	private final IPlanningRepository planningRepo;
+	private final IObjectifRepository objectifRepo;
+	private final IMenuRepository menuRepo;
+	private final IRepasRepository repasRepo;
 	
 	private Application() {
 

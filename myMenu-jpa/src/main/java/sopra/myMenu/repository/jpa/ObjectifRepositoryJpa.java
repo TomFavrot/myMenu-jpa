@@ -11,7 +11,7 @@ import sopra.myMenu.Application;
 import sopra.myMenu.model.Objectif;
 import sopra.myMenu.repository.IObjectifRepository;
 
-public class ObjectifRepositoryJpa implements IObjectifRepository {
+public class ObjectifRepositoryJpa implements IObjectifRepository{
 
 public List<Objectif> findAll() {
 		
