@@ -1,7 +1,7 @@
 package sopra.myMenu.repository;
 
-import sopra.myMenu.model.ListeCourses;
+import sopra.myMenu.model.ListeCourse;
 
-public interface IListeCoursesRepository extends IRepository<ListeCourses,Long> {
+public interface IListeCoursesRepository extends IRepository<ListeCourse,Long> {
 
 }
