@@ -9,9 +9,13 @@ import sopra.myMenu.repository.IIngredientRepository;
 import sopra.myMenu.repository.IListeCourseRepository;
 import sopra.myMenu.repository.IMagasinIngredientRepository;
 import sopra.myMenu.repository.IMagasinRepository;
+import sopra.myMenu.repository.IMenuRepository;
+import sopra.myMenu.repository.IObjectifRepository;
+import sopra.myMenu.repository.IPlanningRepository;
 import sopra.myMenu.repository.IPlatRepository;
 import sopra.myMenu.repository.IPreferenceAlimentaireRepository;
 import sopra.myMenu.repository.IRecetteRepository;
+import sopra.myMenu.repository.IRepasRepository;
 import sopra.myMenu.repository.IUtilisateurRepository;
 
 public class Application {
@@ -29,6 +33,10 @@ public class Application {
 	private final IPreferenceAlimentaireRepository preferencealimRepo;
 	private final IRecetteRepository recetteRepo;
 	private final IUtilisateurRepository utilisateurRepo;
+	private final IPlanningRepository planningRepo;
+	private final IObjectifRepository objectifRepo;
+	private final IMenuRepository menuRepo;
+	private final IRepasRepository repasRepo;
 	
 	private Application() {
 
@@ -85,6 +93,23 @@ public class Application {
 	public IUtilisateurRepository getUtilisateurRepo() {
 		return utilisateurRepo;
 	}
+
+	public IPlanningRepository getPlanningRepo() {
+		return planningRepo;
+	}
+
+	public IObjectifRepository getObjectifRepo() {
+		return objectifRepo;
+	}
+
+	public IMenuRepository getMenuRepo() {
+		return menuRepo;
+	}
+
+	public IRepasRepository getRepasRepo() {
+		return repasRepo;
+	}
+	
 	
 	
 }

@@ -5,11 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,7 +30,7 @@ public class Recette {
 	private TypeAlimentation typeAlimentation;
 	@ManyToMany(mappedBy="recettes")
 	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
-	@OneToOne(mappedBy= "plat")
+	@OneToOne(mappedBy= "recette")
 	private Plat plat;
 	public Recette() {
 		super();
@@ -94,6 +91,22 @@ public class Recette {
 
 	public void setTypeRecette(TypeAlimentation typeAlimentation) {
 		this.typeAlimentation = typeAlimentation;
+	}
+
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public Plat getPlat() {
+		return plat;
+	}
+
+	public void setPlat(Plat plat) {
+		this.plat = plat;
 	}
 	
 	

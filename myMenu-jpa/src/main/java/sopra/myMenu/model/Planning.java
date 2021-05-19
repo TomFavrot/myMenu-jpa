@@ -1,6 +1,8 @@
 package sopra.myMenu.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +24,8 @@ public class Planning {
 	private Date jour;
 	@OneToMany(mappedBy = "planning")
 	private List<Menu> menus = new ArrayList<Menu>(); 
-	@OneToOne(mappedBy = "objectif_id")
+	@OneToOne
+	@JoinColumn(name = "Objectif_Id")
 	private Objectif objectif;
 	@ManyToOne
 	@JoinColumn(name = "utilisateur_id")
@@ -58,5 +61,31 @@ public class Planning {
 	public void setJour(Date jour) {
 		this.jour = jour;
 	}
+
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+
+	public Objectif getObjectif() {
+		return objectif;
+	}
+
+	public void setObjectif(Objectif objectif) {
+		this.objectif = objectif;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
+	
 	
 }
