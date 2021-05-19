@@ -9,8 +9,9 @@ import javax.persistence.TypedQuery;
 
 import sopra.myMenu.Application;
 import sopra.myMenu.model.Planning;
+import sopra.myMenu.repository.IPlanningRepository;
 
-public class PlanningRepositoryJpa {
+public class PlanningRepositoryJpa implements IPlanningRepository {
 
 	public List<Planning> findAll() {
 		
