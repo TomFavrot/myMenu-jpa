@@ -11,9 +11,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 
-
-
-
 @Entity
 @Table(name = "plat")
 public class Plat {
