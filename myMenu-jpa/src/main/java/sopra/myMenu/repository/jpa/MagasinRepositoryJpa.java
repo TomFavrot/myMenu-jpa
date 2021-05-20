@@ -9,7 +9,6 @@ import javax.persistence.TypedQuery;
 
 import sopra.myMenu.Application;
 import sopra.myMenu.model.Magasin;
-import sopra.myMenu.model.MagasinIngredient;
 import sopra.myMenu.repository.IMagasinRepository;
 
 public class MagasinRepositoryJpa implements IMagasinRepository {
