@@ -2,6 +2,8 @@ package sopra.myMenu.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -12,7 +14,7 @@ public class Objectif {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(name = "typeObjectif")
+	@Enumerated(EnumType.STRING)
 	private TypeObjectif typeObjectif;
 	@Column(name = "commentaire")
 	private String commentaire;
@@ -84,5 +86,4 @@ public class Objectif {
 		this.nombreCaloriesParSemaine = nombreCaloriesParSemaine;
 	}
 	
-
 }
