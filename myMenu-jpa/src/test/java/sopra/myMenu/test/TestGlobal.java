@@ -6,16 +6,27 @@ public class TestGlobal {
 		TestBaptiste tb = new TestBaptiste();
 		tb.utilisateurAdressePreferenceAlimentaireCreate();
 		tb.utilisateurAdressePreferenceAlimentaireUpdate();
+		tb.utilisateurAdressePreferenceAlimentaireFindall();
+		tb.utilisateurAdressePreferenceAlimentaireDelete();
 		
 		TestCamille tc = new TestCamille();
-		tc.ajustementCreateUpdate();
-		tc.magasinCreate();
+
 		tc.magasinIngredientCreate();
 		tc.magasinIngredientDelete();
 		tc.magasinIngredientFindAll();
-		tc.magasinIngredientFindAll();
 		tc.magasinIngredientUpdate();
+		tc.ajustementCreate();
+		tc.ajustementFindAll();
+		tc.ajustementQuantiteDelete();
+		tc.ajustementUpdate();
+		tc.listeCourseCreate();
+		tc.listeCourseFindAll();
+		tc.mlisteCourseDelete();
+		tc.magasinCreate();
+		tc.magasinDelete();
+		tc.magasinFindAll();
 		tc.magasinUpdate();
+		
 		
 		TestPlat tp = new TestPlat();
 		tp.platCreate();
@@ -29,6 +40,18 @@ public class TestGlobal {
 		tm.menuDelete();
 		tm.menuFindAll();
 		tm.menuUpdate();
+		
+		TestRecette tr = new TestRecette();
+		tr.RecetteCreate();
+		tr.RecetteFindAll();
+		tr.RecetteDelete();
+		tr.RecetteUpdate();
+		
+		TestIngredient ti = new TestIngredient();
+		ti.IngredientCreate();
+		ti.IngredientDelete();
+		ti.IngredientFindAll();
+		ti.IngredientUpdate();
 
 	}
 
