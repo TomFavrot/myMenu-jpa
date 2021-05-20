@@ -1,6 +1,5 @@
 package sopra.myMenu.test;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,12 +10,10 @@ import org.junit.Test;
 
 import sopra.myMenu.Application;
 import sopra.myMenu.model.AjustementQuantite;
-import sopra.myMenu.model.Ingredient;
 import sopra.myMenu.model.ListeCourse;
 import sopra.myMenu.model.Magasin;
 import sopra.myMenu.model.MagasinIngredient;
 import sopra.myMenu.repository.IAjustementQuantiteRepository;
-import sopra.myMenu.repository.IIngredientRepository;
 import sopra.myMenu.repository.IListeCourseRepository;
 import sopra.myMenu.repository.IMagasinIngredientRepository;
 import sopra.myMenu.repository.IMagasinRepository;

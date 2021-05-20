@@ -25,7 +25,7 @@ public class AdresseRepositoryJpa implements IAdresseRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Adresse> query = em.createQuery("select a from adresse a", Adresse.class);
+			TypedQuery<Adresse> query = em.createQuery("select a from Adresse a", Adresse.class);
 
 			adresses = query.getResultList();
 
