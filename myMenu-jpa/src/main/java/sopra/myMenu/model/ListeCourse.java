@@ -18,7 +18,7 @@ public class ListeCourse {
 	private AjustementQuantite ajustementQuantite;
 	
 	public ListeCourse() {
-		super();
+		super(); 
 	}
 
 	public Long getId() {
