@@ -2,6 +2,7 @@ package sopra.myMenu.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.persistence.PersistenceException;
 
@@ -222,6 +223,193 @@ public class TestBaptiste {
 		utilisateurRepo.delete(tom);
 		prefAlimRepo.delete(prefAlim);
 		adresseRepo.delete(adr);
+	}
+	
+	@Test
+	public void utilisateurAdressePreferenceAlimentaireFindall() {
+		// CREATION UTILISATEURS
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+				IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
+				Utilisateur tom = new Utilisateur();
+				try {
+					tom.setDateNaissance(sdf.parse("10/05/1994"));
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				tom.setGenre(Genre.NON_BINAIRE);
+				tom.setImc(18.0F);
+				tom.setNom("Favrot");
+				tom.setPrenom("Tom");
+				tom.setPhysicalActivity(PhysicalActivity.PANTOUFLARD);
+				tom.setPoids(77.5F);
+				tom.setTaille(177.5F);
+				
+				tom=utilisateurRepo.save(tom);
+				
+				Utilisateur emma = new Utilisateur();
+				try {
+					emma.setDateNaissance(sdf.parse("15/10/1994"));
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				emma.setGenre(Genre.FEMME);
+				emma.setImc(9.0F);
+				emma.setNom("Tome");
+				emma.setPrenom("Emma");
+				emma.setPhysicalActivity(PhysicalActivity.INTENSIF);
+				emma.setPoids(55.5F);
+				emma.setTaille(165.5F);
+				
+				emma=utilisateurRepo.save(emma);
+				// CREATION PREF ALIM
+				IPreferenceAlimentaireRepository prefAlimRepo = Application.getInstance().getPreferencealimRepo();
+				PreferenceAlimentaire prefAlim = new PreferenceAlimentaire(TypeAlimentation.NONE, null);
+				prefAlim=prefAlimRepo.save(prefAlim);
+				
+				PreferenceAlimentaire prefAlim2 = new PreferenceAlimentaire(TypeAlimentation.VEGAN, null);
+				prefAlim2=prefAlimRepo.save(prefAlim2);
+				//tom.addPreferenceAlimentaire(prefAlim);
+
+				// CREATION ADRESSE
+				IAdresseRepository adresseRepo = Application.getInstance().getAdresseRepo();
+				Adresse adr = new Adresse("33 rue IKEA", "Residence plikepluck", "33000", "Bordeaux", "France");
+				//adr.setUtilisateur(tom);
+				adr.setCoordonnees(new Coordonnees(4.0, 88.0));
+				adr=adresseRepo.save(adr);
+				
+				Adresse adr2 = new Adresse("44 rue H&M", "Residence Bamboula", "66666", "SatanVille", "Allemagne");
+				adr2.setCoordonnees(new Coordonnees(77.0, 19.0));
+				adr2=adresseRepo.save(adr2);
+				//tom.addAdresse(adr);
+				
+				
+				// TEST UTILISATEUR
+				List<Utilisateur> utilisateurs = utilisateurRepo.findAll();
+
+				Assert.assertEquals(2, utilisateurs.size());
+
+				utilisateurRepo.delete(tom);
+				utilisateurRepo.delete(emma);
+				
+				// TEST PREF ALIM
+				List<PreferenceAlimentaire> prefsalims = prefAlimRepo.findAll();
+
+				Assert.assertEquals(2, prefsalims.size());
+
+				prefAlimRepo.delete(prefAlim);
+				prefAlimRepo.delete(prefAlim2);	
+				
+				
+				// TEST Adresse
+				List<Adresse> adresses = adresseRepo.findAll();
+
+				Assert.assertEquals(2, adresses.size());
+
+				adresseRepo.delete(adr);
+				adresseRepo.delete(adr2);	
+
+	}
+	
+	public void utilisateurAdressePreferenceAlimentaireDelete() { 
+		// CREATION UTILISATEURS
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
+		Utilisateur tom = new Utilisateur();
+		try {
+			tom.setDateNaissance(sdf.parse("10/05/1994"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		tom.setGenre(Genre.NON_BINAIRE);
+		tom.setImc(18.0F);
+		tom.setNom("Favrot");
+		tom.setPrenom("Tom");
+		tom.setPhysicalActivity(PhysicalActivity.PANTOUFLARD);
+		tom.setPoids(77.5F);
+		tom.setTaille(177.5F);
+		
+		tom=utilisateurRepo.save(tom);
+		
+		Utilisateur emma = new Utilisateur();
+		try {
+			emma.setDateNaissance(sdf.parse("15/10/1994"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		emma.setGenre(Genre.FEMME);
+		emma.setImc(9.0F);
+		emma.setNom("Tome");
+		emma.setPrenom("Emma");
+		emma.setPhysicalActivity(PhysicalActivity.INTENSIF);
+		emma.setPoids(55.5F);
+		emma.setTaille(165.5F);
+		
+		emma=utilisateurRepo.save(emma);
+		// CREATION PREF ALIM
+		IPreferenceAlimentaireRepository prefAlimRepo = Application.getInstance().getPreferencealimRepo();
+		PreferenceAlimentaire prefAlim = new PreferenceAlimentaire(TypeAlimentation.NONE, null);
+		prefAlim=prefAlimRepo.save(prefAlim);
+		
+		PreferenceAlimentaire prefAlim2 = new PreferenceAlimentaire(TypeAlimentation.VEGAN, null);
+		prefAlim2=prefAlimRepo.save(prefAlim2);
+		//tom.addPreferenceAlimentaire(prefAlim);
+
+		// CREATION ADRESSE
+		IAdresseRepository adresseRepo = Application.getInstance().getAdresseRepo();
+		Adresse adr = new Adresse("33 rue IKEA", "Residence plikepluck", "33000", "Bordeaux", "France");
+		//adr.setUtilisateur(tom);
+		adr.setCoordonnees(new Coordonnees(4.0, 88.0));
+		adr=adresseRepo.save(adr);
+		
+		Adresse adr2 = new Adresse("44 rue H&M", "Residence Bamboula", "66666", "SatanVille", "Allemagne");
+		adr2.setCoordonnees(new Coordonnees(77.0, 19.0));
+		adr2=adresseRepo.save(adr2);
+		//tom.addAdresse(adr);
+		
+		
+		// TEST UTILISATEUR
+		List<Utilisateur> utilisateurs = utilisateurRepo.findAll();
+
+		Assert.assertEquals(2, utilisateurs.size());
+
+		utilisateurRepo.delete(tom);
+		utilisateurRepo.delete(emma);
+		
+		utilisateurs = utilisateurRepo.findAll();
+
+		Assert.assertEquals(0, utilisateurs.size());
+		
+		
+		// TEST PREF ALIM
+		List<PreferenceAlimentaire> prefsalims = prefAlimRepo.findAll();
+
+		Assert.assertEquals(2, prefsalims.size());
+
+		prefAlimRepo.delete(prefAlim);
+		prefAlimRepo.delete(prefAlim2);	
+		
+		prefsalims = prefAlimRepo.findAll();
+
+		Assert.assertEquals(0, prefsalims.size());
+		
+		
+		// TEST Adresse
+		List<Adresse> adresses = adresseRepo.findAll();
+
+		Assert.assertEquals(2, adresses.size());
+
+		adresseRepo.delete(adr);
+		adresseRepo.delete(adr2);	
+		
+		adresses = adresseRepo.findAll();
+
+		Assert.assertEquals(0, adresses.size());
+
+	
 	}
 
 }
