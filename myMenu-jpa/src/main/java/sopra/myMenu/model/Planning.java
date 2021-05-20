@@ -1,5 +1,6 @@
 package sopra.myMenu.model;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +21,8 @@ public class Planning {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(name = "jour")
-	private Date jour;
+	@Column(name = "periode")
+	private Duration periode;
 	@OneToMany(mappedBy = "planning")
 	private List<Menu> menus = new ArrayList<Menu>(); 
 	@OneToOne
@@ -35,15 +36,15 @@ public class Planning {
 		super();
 	}
 	
-	public Planning(Date jour) {
+	public Planning(Duration periode) {
 		super();
-		this.jour = jour;
+		this.periode = periode;
 	}
 	
-	public Planning(Long id, Date jour) {
+	public Planning(Long id, Duration periode) {
 		super();
 		this.id = id;
-		this.jour = jour;
+		this.periode = periode;
 	}
 
 	public Long getId() {
@@ -54,12 +55,12 @@ public class Planning {
 		this.id = id;
 	}
 
-	public Date getJour() {
-		return jour;
+	public Duration getPeriode() {
+		return periode;
 	}
 
-	public void setJour(Date jour) {
-		this.jour = jour;
+	public void setPeriode(Duration periode) {
+		this.periode = periode;
 	}
 
 	public List<Menu> getMenus() {
