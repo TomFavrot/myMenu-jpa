@@ -38,7 +38,7 @@ public class Ingredient {
 	private Float nombreCalories100g;
 	
 	@ManyToMany 
-	@JoinTable(name = "recette", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "recette_id"))
+	@JoinTable(name = "recettes", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "recette_id"))
 	private List<Recette> recettes = new ArrayList<Recette>();
 	@ManyToOne
 	@JoinColumn(name = "AjustementQuantite_id")
