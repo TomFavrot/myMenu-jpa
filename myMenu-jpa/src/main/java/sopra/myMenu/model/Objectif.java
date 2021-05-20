@@ -86,5 +86,4 @@ public class Objectif {
 		this.nombreCaloriesParSemaine = nombreCaloriesParSemaine;
 	}
 	
-
 }
