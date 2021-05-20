@@ -2,6 +2,7 @@ package sopra.myMenu.model;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,11 +15,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "planning")
+@Table(name = "menu")
 public class Menu {
 		@Id
 		@GeneratedValue
 		private Long id;
+		@Column(name = "jour")
+		private Date jour;
 		@Column(name = "periode")
 		private Duration periode;
 		@OneToMany(mappedBy = "menu")
@@ -50,6 +53,15 @@ public class Menu {
 
 		public void setId(Long id) {
 			this.id = id;
+		}
+		
+
+		public Date getJour() {
+			return jour;
+		}
+
+		public void setJour(Date jour) {
+			this.jour = jour;
 		}
 
 		public Duration getPeriode() {

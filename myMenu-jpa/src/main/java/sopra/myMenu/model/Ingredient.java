@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -12,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 
@@ -25,14 +28,17 @@ public class Ingredient {
 	private String nom;
 	@Column(name = "quantite")
 	private Float quantite;
-	@Column(name = "type_produit")
+	@Enumerated(EnumType.STRING)
+	//@Column(name = "type_produit")
 	private TypeProduit typeProduit;
-	@Column(name = "produit_saison")
+	@Enumerated(EnumType.STRING)
+	//@Column(name = "produit_saison")
 	private ProduitSaison produitSaison;
 	@Column(name = "nombre_calories_100g")
 	private Float nombreCalories100g;
+	
 	@ManyToMany 
-	@JoinTable(name = "recette", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "recette_id"))
+	@JoinTable(name = "recettes", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "recette_id"))
 	private List<Recette> recettes = new ArrayList<Recette>();
 	@ManyToOne
 	@JoinColumn(name = "AjustementQuantite_id")
