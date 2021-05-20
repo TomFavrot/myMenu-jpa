@@ -1,18 +1,16 @@
 package sopra.myMenu.test;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import sopra.myMenu.Application;
-import sopra.myMenu.model.Ingredient;
-import sopra.myMenu.model.ProduitSaison;
+
 import sopra.myMenu.model.Recette;
 import sopra.myMenu.model.TypeAlimentation;
-import sopra.myMenu.model.TypeProduit;
-import sopra.myMenu.repository.IIngredientRepository;
+
 import sopra.myMenu.repository.IRecetteRepository;
 
 
