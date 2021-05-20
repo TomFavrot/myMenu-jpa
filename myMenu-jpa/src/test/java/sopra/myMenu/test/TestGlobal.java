@@ -52,6 +52,18 @@ public class TestGlobal {
 		ti.IngredientDelete();
 		ti.IngredientFindAll();
 		ti.IngredientUpdate();
+		
+		TestObjectif to = new TestObjectif();
+		to.objectifCreate();
+		to.objectifUpdate();
+		to.objectifFindAll();
+		to.objectifDelete();
+		
+		TestPlanning tplan = new TestPlanning();
+		tplan.planningCreate();
+		tplan.planningUpdate();
+		tplan.planningFindAll();
+		tplan.planningDelete();
 
 	}
 
