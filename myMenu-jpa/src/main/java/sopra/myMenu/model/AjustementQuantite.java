@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -20,7 +21,7 @@ public class AjustementQuantite {
 	private Float quantiteModifiee;
 	@OneToMany(mappedBy = "ajustementQuantite")
 	private List<ListeCourse> listeCourse=new ArrayList<ListeCourse>();
-	@OneToMany(mappedBy = "ajustementQuantite")
+	@OneToMany(mappedBy = "ajustementQuantite",fetch = FetchType.EAGER)
 	private List<Ingredient> ingredients=new ArrayList<Ingredient>();
 	
 	
