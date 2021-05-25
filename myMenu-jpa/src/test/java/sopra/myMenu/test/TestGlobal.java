@@ -9,19 +9,23 @@ public class TestGlobal {
 		tb.utilisateurAdressePreferenceAlimentaireFindall();
 		tb.utilisateurAdressePreferenceAlimentaireDelete();
 		
-		TestCamille tc = new TestCamille();
-
+		TestCamille tc = new TestCamille();  
 		tc.magasinIngredientCreate();
 		tc.magasinIngredientDelete();
 		tc.magasinIngredientFindAll();
 		tc.magasinIngredientUpdate();
-		tc.ajustementCreate();
+		tc.magasinIngredientFindByRisingPrice();
+		tc.magasinIngredientFindByCriteria();
+		tc.ajustementCreateSimple();
+		tc.ajustementCreateAvecLiens();
 		tc.ajustementFindAll();
 		tc.ajustementQuantiteDelete();
 		tc.ajustementUpdate();
-		tc.listeCourseCreate();
+		tc.listeCourseCreateSimple();
+		tc.listeCourseCreateAvecLien();
+		tc.listeCourseUpdate();
 		tc.listeCourseFindAll();
-		tc.mlisteCourseDelete();
+		tc.listeCourseDelete();
 		tc.magasinCreate();
 		tc.magasinDelete();
 		tc.magasinFindAll();

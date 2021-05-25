@@ -10,10 +10,12 @@ import org.junit.Test;
 
 import sopra.myMenu.Application;
 import sopra.myMenu.model.AjustementQuantite;
+import sopra.myMenu.model.Ingredient;
 import sopra.myMenu.model.ListeCourse;
 import sopra.myMenu.model.Magasin;
 import sopra.myMenu.model.MagasinIngredient;
 import sopra.myMenu.repository.IAjustementQuantiteRepository;
+import sopra.myMenu.repository.IIngredientRepository;
 import sopra.myMenu.repository.IListeCourseRepository;
 import sopra.myMenu.repository.IMagasinIngredientRepository;
 import sopra.myMenu.repository.IMagasinRepository;
@@ -22,7 +24,7 @@ public class TestCamille {
 
 	////////////////////////////////////////TEST AJUSTEMENT QUANTITE/////////////////////////////////////////////
 	@Test
-	public void ajustementCreate() {
+	public void ajustementCreateSimple() {
 		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
 		AjustementQuantite ajustement = new AjustementQuantite();
 
@@ -34,6 +36,34 @@ public class TestCamille {
 
 		Assert.assertEquals((Float)2.0F, ajustementFind.getQuantiteModifiee());
 		ajustementRepo.delete(ajustement); 
+
+	}	
+
+	@Test
+	public void ajustementCreateAvecLiens() {
+		IIngredientRepository ingredientRepo = Application.getInstance().getIngredientRepo();
+
+		Ingredient ingredient1 = new Ingredient();
+		ingredient1.setNom("tomate");
+		ingredient1.setQuantite(3F);
+		ingredient1 = ingredientRepo.save(ingredient1);
+
+		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		AjustementQuantite ajustement1 = new AjustementQuantite();			
+		ajustement1.setQuantiteModifiee(2F);
+		
+		ingredient1.setAjustementQuantite(ajustement1);
+		
+		ajustement1 = ajustementRepo.save(ajustement1);
+		
+		ingredient1 = ingredientRepo.save(ingredient1);
+
+		List<AjustementQuantite> ajustementFind = ajustementRepo.findAll();
+
+		Assert.assertEquals((Float)2F,ajustementFind.get(0).getQuantiteModifiee());		
+		
+		ingredientRepo.delete(ingredient1); 
+		ajustementRepo.delete(ajustement1);
 
 	}	
 
@@ -96,57 +126,56 @@ public class TestCamille {
 		ajustements = ajustementRepo.findAll();
 
 		Assert.assertEquals(0, ajustements.size());
+		ajustementRepo.delete(ajustement1);
+		ajustementRepo.delete(ajustement2);	
+		
 	}
 
 
 	////////////////////////////////////////TEST LISTE COURSE/////////////////////////////////////////////
 
-	//test de recherche de la liste d'ingrédients dans la liste de courses en passant par AjustementQUantité --> echec
-//	@Test
-//	public void listeCourseCreate() {
-//		IIngredientRepository ingredientRepo = Application.getInstance().getIngredientRepo();
-//
-//		Ingredient ingredient1 = new Ingredient();
-//		ingredient1.setNom("tomate");
-//		ingredient1.setQuantite(3F);
-//		ingredient1 = ingredientRepo.save(ingredient1);
-//
-////		Ingredient ingredient2 = new Ingredient();
-////		ingredient2.setNom("fromage");
-////		ingredient2.setQuantite(1F);
-////		ingredient2 = ingredientRepo.save(ingredient2);			
-//
-//		List<Ingredient> ingredients = ingredientRepo.findAll(); 
-//
-//		IListeCourseRepository listeCourseRepo = Application.getInstance().getListeCourseRepo();
-//		ListeCourse listeCourse = new ListeCourse();		
-//
-//		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
-//		AjustementQuantite ajustement = new AjustementQuantite();
-//		ajustement.setQuantiteModifiee(2F);	
-//
-//		ajustement.setIngredients(ingredients);
-//		ajustement = ajustementRepo.save(ajustement);
-//
-//		listeCourse.setAjustementQuantite(ajustement);	
-//
-//		ajustement = ajustementRepo.save(ajustement);
-//		try {
-//			listeCourse = listeCourseRepo.save(listeCourse);
-//		} catch(PersistenceException e) {
-//		}
-//
-//		ListeCourse listeFind = listeCourseRepo.findById(listeCourse.getId());
-//
-//		Assert.assertEquals(ingredient1,listeFind.getAjustementQuantite().getIngredients());// le nom est la deuxième colonne dans la table ingredient
-//		listeCourseRepo.delete(listeCourse); 
-//		ingredientRepo.delete(ingredient1); 
-////		ingredientRepo.delete(ingredient2); 
-//
-//	}	
+	@Test
+	public void listeCourseCreateAvecLien() {
+		IIngredientRepository ingredientRepo = Application.getInstance().getIngredientRepo();
+		Ingredient ingredient1 = new Ingredient();
+		ingredient1.setNom("tomate");
+		ingredient1.setQuantite(3F);		
+		
+		ingredient1 = ingredientRepo.save(ingredient1);
+
+		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		AjustementQuantite ajustement1 = new AjustementQuantite();
+
+		ajustement1.setQuantiteModifiee(2F);
+		ingredient1.setAjustementQuantite(ajustement1);
+		
+		ingredient1 = ingredientRepo.save(ingredient1);
+
+		ajustement1 = ajustementRepo.save(ajustement1);	
+
+		IListeCourseRepository listeCourseRepo = Application.getInstance().getListeCourseRepo();
+		ListeCourse listeCourse1 = new ListeCourse();
+
+		listeCourse1.setAjustementQuantite(ajustement1);
+
+		listeCourse1 = listeCourseRepo.save(listeCourse1);
+		
+		List<Ingredient> ingredients = ingredientRepo.findAll();
+		
+		ajustement1.setIngredients(ingredients);
+		
+		ajustementRepo.save(ajustement1);
+		ListeCourse listeFind = listeCourseRepo.findById(listeCourse1.getId());
+		
+		Assert.assertEquals((Float)2F,listeFind.getAjustementQuantite().getQuantiteModifiee());			
+
+		listeCourseRepo.delete(listeCourse1);
+		ajustementRepo.delete(ajustement1);
+		ingredientRepo.delete(ingredient1);
+	}
 
 	@Test
-	public void listeCourseCreate() {
+	public void listeCourseCreateSimple() {
 		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
 		ListeCourse liste1 = new ListeCourse();	
 		ListeCourse liste2 = new ListeCourse();
@@ -161,30 +190,55 @@ public class TestCamille {
 		}
 
 		List<ListeCourse> listeCourses = listeRepo.findAll();
-		
+
 		Assert.assertEquals(2, listeCourses.size());
 
 		listeRepo.delete(liste1);
 		listeRepo.delete(liste2);
+	}	
+
+	@Test
+	public void listeCourseUpdate() {
+		IIngredientRepository ingredientRepo = Application.getInstance().getIngredientRepo();
+		Ingredient ingredient = new Ingredient();
+		ingredient.setNom("tomate");
+		ingredient.setQuantite(3F);		
+		
+		ingredient = ingredientRepo.save(ingredient);
+
+		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		AjustementQuantite ajustement = new AjustementQuantite();
+
+		ajustement.setQuantiteModifiee(2F);
+		ingredient.setAjustementQuantite(ajustement);
+			
+		ajustement = ajustementRepo.save(ajustement);
+		ingredient = ingredientRepo.save(ingredient);				
+	
+		IListeCourseRepository listeCourseRepo = Application.getInstance().getListeCourseRepo();
+		ListeCourse listeCourse = new ListeCourse();
+		
+		listeCourse.setAjustementQuantite(ajustement);	
+		listeCourse = listeCourseRepo.save(listeCourse);
+		
+		ajustement.setQuantiteModifiee(6F);
+		ingredient.setAjustementQuantite(ajustement);
+			
+		ajustement = ajustementRepo.save(ajustement);
+		ingredient = ingredientRepo.save(ingredient);		
+		
+		listeCourse.setAjustementQuantite(ajustement);
+		listeCourse = listeCourseRepo.save(listeCourse);
+		
+		ListeCourse listeFind = listeCourseRepo.findById(listeCourse.getId());
+
+		Assert.assertEquals(listeCourse.getAjustementQuantite().getQuantiteModifiee(),listeFind.getAjustementQuantite().getQuantiteModifiee());
+		listeCourseRepo.delete(listeCourse);
+		ingredientRepo.delete(ingredient);		
+		ajustementRepo.delete(ajustement);
 
 	}	
 
-//	@Test
-//	public void listeCourseUpdate() {
-//		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
-//		ListeCourse liste1 = new ListeCourse();	
-//		ListeCourse liste2 = new ListeCourse();	
-//		liste1 = listeRepo.save(liste1);
-//		liste1=liste2;
-//		liste1 = listeRepo.save(liste1);
-//
-//		ListeCourse listeFind = listeRepo.findById(liste1.getId());
-//
-////		Assert.assertEquals(liste1,listeFind);
-//		listeRepo.delete(liste1);
-//		listeRepo.delete(liste2);
-//	}	
-	
 	@Test
 	public void listeCourseFindAll() {
 		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
@@ -196,7 +250,7 @@ public class TestCamille {
 
 		List<ListeCourse> listeCourses = listeRepo.findAll();
 
-		Assert.assertEquals(2, listeCourses.size());//le delete du test precedent n'ayant pas fonctionné, on en a déjà 2+2
+		Assert.assertEquals(2, listeCourses.size());
 
 		listeRepo.delete(liste1);
 		listeRepo.delete(liste2);	
@@ -204,7 +258,7 @@ public class TestCamille {
 	}
 
 	@Test
-	public void mlisteCourseDelete() {
+	public void listeCourseDelete() {
 		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
 		ListeCourse liste1 = new ListeCourse();	
 		ListeCourse liste2 = new ListeCourse();	
@@ -213,16 +267,16 @@ public class TestCamille {
 		liste2 = listeRepo.save(liste2);			
 
 		List<ListeCourse> listeCourses = listeRepo.findAll();
-		
+
 		Assert.assertEquals(2, listeCourses.size());
 
 		listeRepo.delete(liste1);
 		listeRepo.delete(liste2);	
-		
+
 		listeCourses = listeRepo.findAll();
 
 		Assert.assertEquals(0, listeCourses.size());
-		
+
 		listeRepo.delete(liste1);
 		listeRepo.delete(liste2);	
 
@@ -343,8 +397,114 @@ public class TestCamille {
 		magasinIngredients = magasinIngredRepo.findAll();
 
 		Assert.assertEquals(0, magasinIngredients.size());
+		
+		magasinIngredRepo.delete(magasinIngred1);
+		magasinIngredRepo.delete(magasinIngred2);	
 
 	}
+	
+//	@Test
+//	public void magasinIngredientFindByBrand() {
+//		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
+//		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
+//		MagasinIngredient magasinIngred2 = new MagasinIngredient();
+//		
+//		magasinIngred1.setBio(true);
+//		Date date1 = new Date();
+//		magasinIngred1.setDatePeremption(date1);
+//		magasinIngred1.setPrix(3.5F);
+//		magasinIngred1.setProduitLocal(false);
+//		magasinIngred1.setMarque("marque repère");
+//		
+//		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);
+//		
+//		magasinIngred2.setBio(false);
+//		Date date2= new Date();
+//		magasinIngred2.setDatePeremption(date2);
+//		magasinIngred2.setPrix(5F);
+//		magasinIngred2.setProduitLocal(true);
+//		magasinIngred2.setMarque("Marie");
+//		
+//		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);			
+//
+//		List<MagasinIngredient> marqueMarie = magasinIngredRepo.findByBrand("Marie");
+//		Assert.assertEquals(magasinIngred2.getId(), marqueMarie.get(0).getId());
+//		magasinIngredRepo.delete(magasinIngred1);
+//		magasinIngredRepo.delete(magasinIngred2);
+//	
+//	}
+	
+	@Test
+	public void magasinIngredientFindByCriteria() {
+		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
+		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
+		MagasinIngredient magasinIngred2 = new MagasinIngredient();
+		
+		magasinIngred1.setBio(true);
+		Date date1 = new Date();
+		magasinIngred1.setDatePeremption(date1);
+		magasinIngred1.setPrix(3.5F);
+		magasinIngred1.setProduitLocal(false);
+		magasinIngred1.setMarque("marque repère");
+		
+		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);
+		
+		magasinIngred2.setBio(false);
+		Date date2= new Date();
+		magasinIngred2.setDatePeremption(date2);
+		magasinIngred2.setPrix(5F);
+		magasinIngred2.setProduitLocal(true);
+		magasinIngred2.setMarque("Marie");
+		
+		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);			
+		// criteria : "marque", "bio" ou "produitLocal"
+		List<MagasinIngredient> marqueMarie = magasinIngredRepo.findByCriteria("marque", "Marie");
+		Assert.assertEquals(magasinIngred2.getId(), marqueMarie.get(0).getId());
+		
+		List<MagasinIngredient> marqueBio = magasinIngredRepo.findByCriteria("bio", null);
+		Assert.assertEquals(magasinIngred1.getId(), marqueBio.get(0).getId());
+		
+		List<MagasinIngredient> marqueLocale = magasinIngredRepo.findByCriteria("produitLocal", null);
+		Assert.assertEquals(magasinIngred2.getId(), marqueLocale.get(0).getId());
+		
+		magasinIngredRepo.delete(magasinIngred1);
+		magasinIngredRepo.delete(magasinIngred2);
+	
+	}
+	
+	@Test
+	public void magasinIngredientFindByRisingPrice() {
+		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
+		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
+		MagasinIngredient magasinIngred2 = new MagasinIngredient();
+		
+		magasinIngred1.setBio(true);
+		Date date1 = new Date();
+		magasinIngred1.setDatePeremption(date1);
+		magasinIngred1.setPrix(3.5F);
+		magasinIngred1.setProduitLocal(false);
+		magasinIngred1.setMarque("marque repère");
+		
+		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);
+		
+		magasinIngred2.setBio(false);
+		Date date2= new Date();
+		magasinIngred2.setDatePeremption(date2);
+		magasinIngred2.setPrix(5F);
+		magasinIngred2.setProduitLocal(true);
+		magasinIngred2.setMarque("Marie");
+		
+		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);			
+
+		List<MagasinIngredient> magasinsParPrix = magasinIngredRepo.findByRisingPrice();
+		Assert.assertEquals(magasinIngred1.getId(), magasinsParPrix.get(0).getId());
+		Assert.assertEquals(magasinIngred2.getId(), magasinsParPrix.get(1).getId());
+		magasinIngredRepo.delete(magasinIngred1);
+		magasinIngredRepo.delete(magasinIngred2);
+	
+	}
+	
+	
 
 	////////////////////////////////////////TEST MAGASIN /////////////////////////////////////////////
 	@Test
