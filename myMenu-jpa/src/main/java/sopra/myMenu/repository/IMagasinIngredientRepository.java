@@ -8,10 +8,8 @@ import sopra.myMenu.model.MagasinIngredient;
 
 public interface IMagasinIngredientRepository extends JpaRepository<MagasinIngredient, Long>{
 
-//	List<MagasinIngredient> findByBrand(String marque);
-
-	List<MagasinIngredient> findByRisingPrice();
-
-	List<MagasinIngredient> findByCriteria(String criteria, String marque);
+//	List<MagasinIngredient> findByRisingPrice();
+//
+//	List<MagasinIngredient> findByCriteria(String criteria, String marque);
 
 }
