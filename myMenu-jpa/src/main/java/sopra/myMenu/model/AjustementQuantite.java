@@ -25,7 +25,7 @@ public class AjustementQuantite {
 	private Float quantiteModifiee;
 	@OneToMany(mappedBy = "ajustementQuantite")
 	private List<ListeCourse> listeCourse=new ArrayList<ListeCourse>();
-	@OneToMany(mappedBy = "ajustementQuantite",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "ajustementQuantite")
 	private List<Ingredient> ingredients=new ArrayList<Ingredient>();
 	
 	
