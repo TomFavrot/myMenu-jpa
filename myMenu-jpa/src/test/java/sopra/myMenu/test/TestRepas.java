@@ -1,20 +1,13 @@
 package sopra.myMenu.test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.myMenu.Application;
-import sopra.myMenu.model.Menu;
-import sopra.myMenu.model.Plat;
 import sopra.myMenu.model.Repas;
 import sopra.myMenu.model.TypeRepas;
-import sopra.myMenu.repository.IMenuRepository;
-import sopra.myMenu.repository.IPlatRepository;
 import sopra.myMenu.repository.IRepasRepository;
 
 public class TestRepas {

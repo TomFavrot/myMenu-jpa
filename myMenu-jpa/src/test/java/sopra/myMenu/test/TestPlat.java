@@ -12,13 +12,6 @@ import sopra.myMenu.model.Plat;
 import sopra.myMenu.repository.IPlatRepository;
 
 public class TestPlat {
-	@Test
-	public void platCreate() {
-
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				"classpath:application-context.xml");
-
-public class TestPlat {
 	@Test	
 	public void platCreate() {
 		

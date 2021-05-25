@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.myMenu.Application;
 import sopra.myMenu.model.Objectif;
 import sopra.myMenu.model.TypeObjectif;
 import sopra.myMenu.repository.IObjectifRepository;
@@ -14,8 +14,9 @@ public class TestObjectif {
 
 	@Test
 	public void objectifCreate() {
-
-		IObjectifRepository objectifRepo = Application.getInstance().getObjectifRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IObjectifRepository objectifRepo = context.getBean(IObjectifRepository.class);
 
 		Objectif objectif1 = new Objectif();
 
@@ -26,7 +27,7 @@ public class TestObjectif {
 		objectif1 = objectifRepo.save(objectif1);
 
 		try {
-			Objectif objectifFind = objectifRepo.findById(objectif1.getId());
+			Objectif objectifFind = objectifRepo.findById(objectif1.getId()).get();
 
 			Assert.assertEquals(TypeObjectif.BIEN_ETRE, objectifFind.getTypeObjectif());
 			Assert.assertEquals("commentaire1", objectifFind.getCommentaire());
@@ -37,12 +38,14 @@ public class TestObjectif {
 		finally {
 			objectifRepo.delete(objectif1);
 		}
+		context.close();
 	}
 
 	@Test
 	public void objectifUpdate() {
-
-		IObjectifRepository objectifRepo = Application.getInstance().getObjectifRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IObjectifRepository objectifRepo = context.getBean(IObjectifRepository.class);
 
 		Objectif objectif1 = new Objectif();
 
@@ -59,7 +62,7 @@ public class TestObjectif {
 		objectif1 = objectifRepo.save(objectif1);
 
 		try {
-			Objectif objectifFind = objectifRepo.findById(objectif1.getId());
+			Objectif objectifFind = objectifRepo.findById(objectif1.getId()).get();
 
 			Assert.assertEquals(TypeObjectif.PRISE_MASSE, objectifFind.getTypeObjectif());
 			Assert.assertEquals("commentaire2", objectifFind.getCommentaire());
@@ -70,12 +73,15 @@ public class TestObjectif {
 		finally {
 			objectifRepo.delete(objectif1);
 		}
+		context.close();
 	}
 
 	@Test
 	public void objectifFindAll() {
 
-		IObjectifRepository objectifRepo = Application.getInstance().getObjectifRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IObjectifRepository objectifRepo = context.getBean(IObjectifRepository.class);
 
 		Objectif objectif1 = new Objectif();
 		Objectif objectif2 = new Objectif();
@@ -102,12 +108,15 @@ public class TestObjectif {
 			objectifRepo.delete(objectif1);
 			objectifRepo.delete(objectif2);
 		}
+		context.close();
 	}
 	
 	@Test
 	public void objectifDelete() {
 
-		IObjectifRepository objectifRepo = Application.getInstance().getObjectifRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IObjectifRepository objectifRepo = context.getBean(IObjectifRepository.class);
 
 		Objectif objectif1 = new Objectif();
 		Objectif objectif2 = new Objectif();
@@ -138,6 +147,7 @@ public class TestObjectif {
 			
 			Assert.assertEquals(0, objectifs.size());
 		}
+		context.close();
 	}
 	
 }
