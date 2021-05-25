@@ -9,12 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 @Entity
 @Table(name = "preference_alimentaire")
 public class PreferenceAlimentaire {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Enumerated(EnumType.STRING)
 	private TypeAlimentation typeAlimentation;
 	@ManyToOne
@@ -60,6 +64,16 @@ public class PreferenceAlimentaire {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
+	
 	
 	
 	
