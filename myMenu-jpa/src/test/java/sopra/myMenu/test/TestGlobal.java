@@ -14,8 +14,8 @@ public class TestGlobal {
 		tc.magasinIngredientDelete();
 		tc.magasinIngredientFindAll();
 		tc.magasinIngredientUpdate();
-		tc.magasinIngredientFindByRisingPrice();
-		tc.magasinIngredientFindByCriteria();
+		//tc.magasinIngredientFindByRisingPrice();
+		//tc.magasinIngredientFindByCriteria();
 		tc.ajustementCreateSimple();
 		tc.ajustementCreateAvecLiens();
 		tc.ajustementFindAll();

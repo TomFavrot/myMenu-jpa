@@ -14,12 +14,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 @Entity
 @Table(name = "planning")
 public class Planning {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "periode")
 	private Duration periode;
 	@OneToMany(mappedBy = "planning")
@@ -86,6 +90,11 @@ public class Planning {
 		this.utilisateur = utilisateur;
 	}
 	
-	
-	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 }

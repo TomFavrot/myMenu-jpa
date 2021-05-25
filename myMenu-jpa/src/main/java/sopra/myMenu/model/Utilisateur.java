@@ -12,12 +12,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.Version;
 @Entity
 @Table(name = "utilisateur")
 public class Utilisateur {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "Nom")
 	private String nom;
 	@Column(name = "Prenom")
@@ -165,6 +169,14 @@ public class Utilisateur {
 	
 	public void addPreferenceAlimentaire(PreferenceAlimentaire prefAlim ) {
 		preferencesAlimentaires.add(prefAlim);
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 	

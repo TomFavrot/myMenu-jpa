@@ -14,12 +14,16 @@ import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 @Entity
 @Table(name = "repas")
 public class Repas {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Enumerated(EnumType.STRING)
 	private TypeRepas typeRepas;
 	@ManyToOne
@@ -74,7 +78,13 @@ public class Repas {
 	public void setPlats(List<Plat> plats) {
 		this.plats = plats;
 	}
-	
-	
-	
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+		
 }
