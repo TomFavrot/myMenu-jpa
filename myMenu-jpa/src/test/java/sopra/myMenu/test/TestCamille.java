@@ -7,8 +7,8 @@ import javax.persistence.PersistenceException;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.myMenu.Application;
 import sopra.myMenu.model.AjustementQuantite;
 import sopra.myMenu.model.Ingredient;
 import sopra.myMenu.model.ListeCourse;
@@ -25,14 +25,17 @@ public class TestCamille {
 	////////////////////////////////////////TEST AJUSTEMENT QUANTITE/////////////////////////////////////////////
 	@Test
 	public void ajustementCreateSimple() {
-		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IAjustementQuantiteRepository ajustementRepo = context.getBean(IAjustementQuantiteRepository.class);
 		AjustementQuantite ajustement = new AjustementQuantite();
 
 		ajustement.setQuantiteModifiee(2F);	
 
 		ajustement = ajustementRepo.save(ajustement); 
 
-		AjustementQuantite ajustementFind = ajustementRepo.findById(ajustement.getId());
+		AjustementQuantite ajustementFind = ajustementRepo.findById(ajustement.getId()).get();
 
 		Assert.assertEquals((Float)2.0F, ajustementFind.getQuantiteModifiee());
 		ajustementRepo.delete(ajustement); 
@@ -41,14 +44,17 @@ public class TestCamille {
 
 	@Test
 	public void ajustementCreateAvecLiens() {
-		IIngredientRepository ingredientRepo = Application.getInstance().getIngredientRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IIngredientRepository ingredientRepo = context.getBean(IIngredientRepository.class);
 
 		Ingredient ingredient1 = new Ingredient();
 		ingredient1.setNom("tomate");
 		ingredient1.setQuantite(3F);
 		ingredient1 = ingredientRepo.save(ingredient1);
 
-		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		IAjustementQuantiteRepository ajustementRepo = context.getBean(IAjustementQuantiteRepository.class);
 		AjustementQuantite ajustement1 = new AjustementQuantite();			
 		ajustement1.setQuantiteModifiee(2F);
 		
@@ -69,16 +75,19 @@ public class TestCamille {
 
 	@Test
 	public void ajustementUpdate() {
-		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IAjustementQuantiteRepository ajustementRepo = context.getBean(IAjustementQuantiteRepository.class);
 		AjustementQuantite ajustement = new AjustementQuantite();
 
 		ajustement.setQuantiteModifiee(2F);	
 		ajustement = ajustementRepo.save(ajustement);
-		AjustementQuantite ajustementFind = ajustementRepo.findById(ajustement.getId());
+		AjustementQuantite ajustementFind = ajustementRepo.findById(ajustement.getId()).get();
 
 		ajustement.setQuantiteModifiee(6F);	
 		ajustement = ajustementRepo.save(ajustement);
-		ajustementFind = ajustementRepo.findById(ajustement.getId());
+		ajustementFind = ajustementRepo.findById(ajustement.getId()).get();
 
 		Assert.assertEquals((Float)6F, ajustementFind.getQuantiteModifiee());
 		ajustementRepo.delete(ajustement);
@@ -87,7 +96,9 @@ public class TestCamille {
 
 	@Test
 	public void ajustementFindAll() {
-		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IAjustementQuantiteRepository ajustementRepo = context.getBean(IAjustementQuantiteRepository.class);
 
 		AjustementQuantite ajustement1 = new AjustementQuantite();
 		ajustement1.setQuantiteModifiee(3F); 
@@ -108,8 +119,11 @@ public class TestCamille {
 
 	@Test
 	public void ajustementQuantiteDelete() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 
-		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		IAjustementQuantiteRepository ajustementRepo = context.getBean(IAjustementQuantiteRepository.class);
 		AjustementQuantite ajustement1 = new AjustementQuantite();
 		AjustementQuantite ajustement2 = new AjustementQuantite();
 
@@ -136,28 +150,31 @@ public class TestCamille {
 
 	@Test
 	public void listeCourseCreateAvecLien() {
-		IIngredientRepository ingredientRepo = Application.getInstance().getIngredientRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IIngredientRepository ingredientRepo = context.getBean(IIngredientRepository.class);
+		
 		Ingredient ingredient1 = new Ingredient();
 		ingredient1.setNom("tomate");
-		ingredient1.setQuantite(3F);		
-		
+		ingredient1.setQuantite(3F);			
 		ingredient1 = ingredientRepo.save(ingredient1);
 
-		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		IAjustementQuantiteRepository ajustementRepo = context.getBean(IAjustementQuantiteRepository.class);
+		
 		AjustementQuantite ajustement1 = new AjustementQuantite();
-
 		ajustement1.setQuantiteModifiee(2F);
+		
 		ingredient1.setAjustementQuantite(ajustement1);
 		
 		ingredient1 = ingredientRepo.save(ingredient1);
 
 		ajustement1 = ajustementRepo.save(ajustement1);	
 
-		IListeCourseRepository listeCourseRepo = Application.getInstance().getListeCourseRepo();
+		IListeCourseRepository listeCourseRepo = context.getBean(IListeCourseRepository.class);
 		ListeCourse listeCourse1 = new ListeCourse();
 
 		listeCourse1.setAjustementQuantite(ajustement1);
-
 		listeCourse1 = listeCourseRepo.save(listeCourse1);
 		
 		List<Ingredient> ingredients = ingredientRepo.findAll();
@@ -165,7 +182,7 @@ public class TestCamille {
 		ajustement1.setIngredients(ingredients);
 		
 		ajustementRepo.save(ajustement1);
-		ListeCourse listeFind = listeCourseRepo.findById(listeCourse1.getId());
+		ListeCourse listeFind = listeCourseRepo.findById(listeCourse1.getId()).get();
 		
 		Assert.assertEquals((Float)2F,listeFind.getAjustementQuantite().getQuantiteModifiee());			
 
@@ -176,7 +193,10 @@ public class TestCamille {
 
 	@Test
 	public void listeCourseCreateSimple() {
-		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IListeCourseRepository listeRepo = context.getBean(IListeCourseRepository.class);
 		ListeCourse liste1 = new ListeCourse();	
 		ListeCourse liste2 = new ListeCourse();
 
@@ -199,14 +219,17 @@ public class TestCamille {
 
 	@Test
 	public void listeCourseUpdate() {
-		IIngredientRepository ingredientRepo = Application.getInstance().getIngredientRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IIngredientRepository ingredientRepo = context.getBean(IIngredientRepository.class);
 		Ingredient ingredient = new Ingredient();
 		ingredient.setNom("tomate");
 		ingredient.setQuantite(3F);		
 		
 		ingredient = ingredientRepo.save(ingredient);
 
-		IAjustementQuantiteRepository ajustementRepo = Application.getInstance().getAjustquantitRepo();
+		IAjustementQuantiteRepository ajustementRepo = context.getBean(IAjustementQuantiteRepository.class);
 		AjustementQuantite ajustement = new AjustementQuantite();
 
 		ajustement.setQuantiteModifiee(2F);
@@ -215,7 +238,7 @@ public class TestCamille {
 		ajustement = ajustementRepo.save(ajustement);
 		ingredient = ingredientRepo.save(ingredient);				
 	
-		IListeCourseRepository listeCourseRepo = Application.getInstance().getListeCourseRepo();
+		IListeCourseRepository listeCourseRepo = context.getBean(IListeCourseRepository.class);
 		ListeCourse listeCourse = new ListeCourse();
 		
 		listeCourse.setAjustementQuantite(ajustement);	
@@ -230,7 +253,7 @@ public class TestCamille {
 		listeCourse.setAjustementQuantite(ajustement);
 		listeCourse = listeCourseRepo.save(listeCourse);
 		
-		ListeCourse listeFind = listeCourseRepo.findById(listeCourse.getId());
+		ListeCourse listeFind = listeCourseRepo.findById(listeCourse.getId()).get();
 
 		Assert.assertEquals(listeCourse.getAjustementQuantite().getQuantiteModifiee(),listeFind.getAjustementQuantite().getQuantiteModifiee());
 		listeCourseRepo.delete(listeCourse);
@@ -241,7 +264,10 @@ public class TestCamille {
 
 	@Test
 	public void listeCourseFindAll() {
-		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IListeCourseRepository listeRepo = context.getBean(IListeCourseRepository.class);
 		ListeCourse liste1 = new ListeCourse();	
 		ListeCourse liste2 = new ListeCourse();	
 
@@ -259,7 +285,10 @@ public class TestCamille {
 
 	@Test
 	public void listeCourseDelete() {
-		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IListeCourseRepository listeRepo = context.getBean(IListeCourseRepository.class);
 		ListeCourse liste1 = new ListeCourse();	
 		ListeCourse liste2 = new ListeCourse();	
 
@@ -285,7 +314,10 @@ public class TestCamille {
 	//////////////////////////////////////// TEST MAGASIN INGREDIENTS/////////////////////////////////////////////
 	@Test
 	public void magasinIngredientCreate() {
-		IMagasinIngredientRepository magasinIngredientRepo = Application.getInstance().getMagasiningredRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IMagasinIngredientRepository magasinIngredientRepo = context.getBean(IMagasinIngredientRepository.class);
 		MagasinIngredient magasinIngred = new MagasinIngredient();
 		magasinIngred.setBio(true);
 		Date date1 = new Date();
@@ -298,7 +330,7 @@ public class TestCamille {
 			magasinIngred = magasinIngredientRepo.save(magasinIngred);
 		} catch(PersistenceException e) {
 		}
-		MagasinIngredient magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId());
+		MagasinIngredient magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId()).get();
 		Assert.assertEquals(true, magasinIngredFind.getBio());
 		Assert.assertEquals(date1, magasinIngredFind.getDatePeremption());
 		Assert.assertEquals((Float)3.5F, magasinIngredFind.getPrix());
@@ -310,7 +342,10 @@ public class TestCamille {
 
 	@Test
 	public void magasinIngredientUpdate() {
-		IMagasinIngredientRepository magasinIngredientRepo = Application.getInstance().getMagasiningredRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IMagasinIngredientRepository magasinIngredientRepo = context.getBean(IMagasinIngredientRepository.class);
 		MagasinIngredient magasinIngred = new MagasinIngredient();
 		magasinIngred.setBio(true);
 		Date date1 = new Date();
@@ -320,7 +355,7 @@ public class TestCamille {
 		magasinIngred.setMarque("marque repère");		
 
 		magasinIngred = magasinIngredientRepo.save(magasinIngred);
-		MagasinIngredient magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId());
+		MagasinIngredient magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId()).get();
 
 		magasinIngred.setBio(false);
 		Date date2 = new Date();
@@ -330,7 +365,7 @@ public class TestCamille {
 		magasinIngred.setMarque("Marie");		
 
 		magasinIngred = magasinIngredientRepo.save(magasinIngred);
-		magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId());
+		magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId()).get();
 
 		Assert.assertEquals(false, magasinIngredFind.getBio());
 		Assert.assertEquals(date2, magasinIngredFind.getDatePeremption());
@@ -344,8 +379,11 @@ public class TestCamille {
 
 	@Test
 	public void magasinIngredientFindAll() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 
-		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
+		IMagasinIngredientRepository magasinIngredRepo = context.getBean(IMagasinIngredientRepository.class);		
 		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
 
 		magasinIngred1.setBio(true);
@@ -379,8 +417,11 @@ public class TestCamille {
 
 	@Test
 	public void magasinIngredientDelete() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 
-		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
+		IMagasinIngredientRepository magasinIngredRepo = context.getBean(IMagasinIngredientRepository.class);		
 		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
 		MagasinIngredient magasinIngred2 = new MagasinIngredient(); 
 
@@ -434,82 +475,91 @@ public class TestCamille {
 //	
 //	}
 	
-	@Test
-	public void magasinIngredientFindByCriteria() {
-		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
-		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
-		MagasinIngredient magasinIngred2 = new MagasinIngredient();
-		
-		magasinIngred1.setBio(true);
-		Date date1 = new Date();
-		magasinIngred1.setDatePeremption(date1);
-		magasinIngred1.setPrix(3.5F);
-		magasinIngred1.setProduitLocal(false);
-		magasinIngred1.setMarque("marque repère");
-		
-		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);
-		
-		magasinIngred2.setBio(false);
-		Date date2= new Date();
-		magasinIngred2.setDatePeremption(date2);
-		magasinIngred2.setPrix(5F);
-		magasinIngred2.setProduitLocal(true);
-		magasinIngred2.setMarque("Marie");
-		
-		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);			
-		// criteria : "marque", "bio" ou "produitLocal"
-		List<MagasinIngredient> marqueMarie = magasinIngredRepo.findByCriteria("marque", "Marie");
-		Assert.assertEquals(magasinIngred2.getId(), marqueMarie.get(0).getId());
-		
-		List<MagasinIngredient> marqueBio = magasinIngredRepo.findByCriteria("bio", null);
-		Assert.assertEquals(magasinIngred1.getId(), marqueBio.get(0).getId());
-		
-		List<MagasinIngredient> marqueLocale = magasinIngredRepo.findByCriteria("produitLocal", null);
-		Assert.assertEquals(magasinIngred2.getId(), marqueLocale.get(0).getId());
-		
-		magasinIngredRepo.delete(magasinIngred1);
-		magasinIngredRepo.delete(magasinIngred2);
+//	@Test
+//	public void magasinIngredientFindByCriteria() {
+//		
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+//				"classpath:application-context.xml");
+//		IMagasinIngredientRepository magasinIngredRepo = context.getBean(IMagasinIngredientRepository.class);		
+//		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
+//		MagasinIngredient magasinIngred2 = new MagasinIngredient();
+//		
+//		magasinIngred1.setBio(true);
+//		Date date1 = new Date();
+//		magasinIngred1.setDatePeremption(date1);
+//		magasinIngred1.setPrix(3.5F);
+//		magasinIngred1.setProduitLocal(false);
+//		magasinIngred1.setMarque("marque repère");
+//		
+//		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);
+//		
+//		magasinIngred2.setBio(false);
+//		Date date2= new Date();
+//		magasinIngred2.setDatePeremption(date2);
+//		magasinIngred2.setPrix(5F);
+//		magasinIngred2.setProduitLocal(true);
+//		magasinIngred2.setMarque("Marie");
+//		
+//		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);			
+//		// criteria : "marque", "bio" ou "produitLocal"
+//		List<MagasinIngredient> marqueMarie = magasinIngredRepo.findByCriteria("marque", "Marie");
+//		Assert.assertEquals(magasinIngred2.getId(), marqueMarie.get(0).getId());
+//		
+//		List<MagasinIngredient> marqueBio = magasinIngredRepo.findByCriteria("bio", null);
+//		Assert.assertEquals(magasinIngred1.getId(), marqueBio.get(0).getId());
+//		
+//		List<MagasinIngredient> marqueLocale = magasinIngredRepo.findByCriteria("produitLocal", null);
+//		Assert.assertEquals(magasinIngred2.getId(), marqueLocale.get(0).getId());
+//		
+//		magasinIngredRepo.delete(magasinIngred1);
+//		magasinIngredRepo.delete(magasinIngred2);
+//	
+//	}
 	
-	}
-	
-	@Test
-	public void magasinIngredientFindByRisingPrice() {
-		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
-		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
-		MagasinIngredient magasinIngred2 = new MagasinIngredient();
-		
-		magasinIngred1.setBio(true);
-		Date date1 = new Date();
-		magasinIngred1.setDatePeremption(date1);
-		magasinIngred1.setPrix(3.5F);
-		magasinIngred1.setProduitLocal(false);
-		magasinIngred1.setMarque("marque repère");
-		
-		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);
-		
-		magasinIngred2.setBio(false);
-		Date date2= new Date();
-		magasinIngred2.setDatePeremption(date2);
-		magasinIngred2.setPrix(5F);
-		magasinIngred2.setProduitLocal(true);
-		magasinIngred2.setMarque("Marie");
-		
-		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);			
-
-		List<MagasinIngredient> magasinsParPrix = magasinIngredRepo.findByRisingPrice();
-		Assert.assertEquals(magasinIngred1.getId(), magasinsParPrix.get(0).getId());
-		Assert.assertEquals(magasinIngred2.getId(), magasinsParPrix.get(1).getId());
-		magasinIngredRepo.delete(magasinIngred1);
-		magasinIngredRepo.delete(magasinIngred2);
-	
-	}
+//	@Test
+//	public void magasinIngredientFindByRisingPrice() {
+//		
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+//				"classpath:application-context.xml");
+//		IMagasinIngredientRepository magasinIngredRepo = context.getBean(IMagasinIngredientRepository.class);		
+//		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
+//		MagasinIngredient magasinIngred2 = new MagasinIngredient();
+//		
+//		magasinIngred1.setBio(true);
+//		Date date1 = new Date();
+//		magasinIngred1.setDatePeremption(date1);
+//		magasinIngred1.setPrix(3.5F);
+//		magasinIngred1.setProduitLocal(false);
+//		magasinIngred1.setMarque("marque repère");
+//		
+//		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);
+//		
+//		magasinIngred2.setBio(false);
+//		Date date2= new Date();
+//		magasinIngred2.setDatePeremption(date2);
+//		magasinIngred2.setPrix(5F);
+//		magasinIngred2.setProduitLocal(true);
+//		magasinIngred2.setMarque("Marie");
+//		
+//		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);			
+//
+//		List<MagasinIngredient> magasinsParPrix = magasinIngredRepo.findByRisingPrice();
+//		Assert.assertEquals(magasinIngred1.getId(), magasinsParPrix.get(0).getId());
+//		Assert.assertEquals(magasinIngred2.getId(), magasinsParPrix.get(1).getId());
+//		magasinIngredRepo.delete(magasinIngred1);
+//		magasinIngredRepo.delete(magasinIngred2);
+//	
+//	}
 	
 	
 
 	////////////////////////////////////////TEST MAGASIN /////////////////////////////////////////////
 	@Test
 	public void magasinCreate() {
-		IMagasinRepository magasinRepo = Application.getInstance().getMagasinRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IMagasinRepository magasinRepo = context.getBean(IMagasinRepository.class);
 		Magasin magasin = new Magasin();
 
 		magasin.setNom("Carrefour");
@@ -519,7 +569,7 @@ public class TestCamille {
 			magasin = magasinRepo.save(magasin);
 		} catch(PersistenceException e) {
 		}
-		Magasin magasinFind = magasinRepo.findById(magasin.getId());
+		Magasin magasinFind = magasinRepo.findById(magasin.getId()).get();
 
 		Assert.assertEquals("Carrefour", magasinFind.getNom());	
 		Assert.assertEquals("123456789", magasinFind.getSiret());	
@@ -529,20 +579,23 @@ public class TestCamille {
 
 	@Test
 	public void magasinUpdate() {
-		IMagasinRepository magasinRepo = Application.getInstance().getMagasinRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		IMagasinRepository magasinRepo = context.getBean(IMagasinRepository.class);
 		Magasin magasin = new Magasin();
 
 		magasin.setNom("Carrefour");
 		magasin.setSiret("123456789");		
 
 		magasin = magasinRepo.save(magasin);		
-		Magasin magasinFind = magasinRepo.findById(magasin.getId());
+		Magasin magasinFind = magasinRepo.findById(magasin.getId()).get();
 
 		magasin.setNom("Leclerc"); 
 		magasin.setSiret("987654321");	 
 
 		magasin = magasinRepo.save(magasin);		
-		magasinFind = magasinRepo.findById(magasin.getId());
+		magasinFind = magasinRepo.findById(magasin.getId()).get();
 
 		Assert.assertEquals("Leclerc", magasinFind.getNom());	
 		Assert.assertEquals("987654321", magasinFind.getSiret());	
@@ -552,8 +605,11 @@ public class TestCamille {
 
 	@Test
 	public void magasinFindAll() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 
-		IMagasinRepository magasinRepo = Application.getInstance().getMagasinRepo();		
+		IMagasinRepository magasinRepo = context.getBean(IMagasinRepository.class);		
 		Magasin magasin1 = new Magasin(); 
 
 		magasin1.setNom("Carrefour");
@@ -578,8 +634,11 @@ public class TestCamille {
 
 	@Test
 	public void magasinDelete() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 
-		IMagasinRepository magasinRepo = Application.getInstance().getMagasinRepo();		
+		IMagasinRepository magasinRepo = context.getBean(IMagasinRepository.class);		
 		Magasin magasin1 = new Magasin(); 
 		Magasin magasin2 = new Magasin(); 
 
