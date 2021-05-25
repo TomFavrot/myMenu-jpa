@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import sopra.myMenu.Application;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sopra.myMenu.model.Plat;
 import sopra.myMenu.repository.IPlatRepository;
 
@@ -13,24 +12,31 @@ public class TestPlat {
 	@Test
 	public void platCreate() {
 
-		IPlatRepository platRepo = Application.getInstance().getPlatRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
+		IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 
 		Plat plat1 = new Plat(2);
 
 		plat1 = platRepo.save(plat1);
 
-		Plat platFind = platRepo.findById(plat1.getId());
+		Plat platFind = platRepo.findById(plat1.getId()).get();
 
 		Assert.assertEquals(2, platFind.getNombrePersonne());
 
 		platRepo.delete(plat1);
 
+		context.close();
 	}
 
 	@Test
 	public void platUpdate() {
 
-		IPlatRepository platRepo = Application.getInstance().getPlatRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
+		IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 
 		Plat plat1 = new Plat(2);
 
@@ -39,18 +45,23 @@ public class TestPlat {
 		plat1.setNombrePersonne(4);
 
 		plat1 = platRepo.save(plat1);
-		Plat platFind = platRepo.findById(plat1.getId());
+		Plat platFind = platRepo.findById(plat1.getId()).get();
 
 		Assert.assertEquals(4, platFind.getNombrePersonne());
 		;
 
 		platRepo.delete(plat1);
+		
+		context.close();
 	}
 
 	@Test
 	public void platFindAll() {
 
-		IPlatRepository platRepo = Application.getInstance().getPlatRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
+		IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 
 		Plat plat1 = new Plat(3);
 
@@ -66,12 +77,16 @@ public class TestPlat {
 		platRepo.delete(plat1);
 		platRepo.delete(plat2);
 
+		context.close();
 	}
 
 	@Test
 	public void platDelete() {
 
-		IPlatRepository platRepo = Application.getInstance().getPlatRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
+		IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 
 		Plat plat1 = new Plat(2);
 
@@ -90,5 +105,7 @@ public class TestPlat {
 		plats = platRepo.findAll();
 
 		Assert.assertEquals(0, plats.size());
+		
+		context.close();
 	}
 }

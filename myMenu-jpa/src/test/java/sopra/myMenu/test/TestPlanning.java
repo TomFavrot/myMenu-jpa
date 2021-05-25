@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.myMenu.Application;
 import sopra.myMenu.model.Planning;
 import sopra.myMenu.repository.IPlanningRepository;
 
@@ -15,7 +15,10 @@ public class TestPlanning {
 	@Test
 	public void planningCreate() {
 
-		IPlanningRepository planningRepo = Application.getInstance().getPlanningRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
+		IPlanningRepository planningRepo = context.getBean(IPlanningRepository.class);
 
 		Planning planning1 = new Planning();
 
@@ -23,20 +26,24 @@ public class TestPlanning {
 			planning1.setPeriode(Duration.ofDays(7));
 			planning1 = planningRepo.save(planning1);
 
-			Planning planningFind = planningRepo.findById(planning1.getId());
+			Planning planningFind = planningRepo.findById(planning1.getId()).get();
 
 			Assert.assertEquals(Duration.ofDays(7), planningFind.getPeriode());
 		}
 
 		finally {
 			planningRepo.delete(planning1);
+			context.close();
 		}
 	}
 
 	@Test
 	public void planningUpdate() {
 
-		IPlanningRepository planningRepo = Application.getInstance().getPlanningRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
+		IPlanningRepository planningRepo = context.getBean(IPlanningRepository.class);
 
 		Planning planning1 = new Planning();
 
@@ -47,20 +54,24 @@ public class TestPlanning {
 			planning1.setPeriode(Duration.ofDays(4));
 			planning1 = planningRepo.save(planning1);
 
-			Planning planningFind = planningRepo.findById(planning1.getId());
+			Planning planningFind = planningRepo.findById(planning1.getId()).get();
 
 			Assert.assertEquals(Duration.ofDays(4), planningFind.getPeriode());
 		}
 
 		finally {
 			planningRepo.delete(planning1);
+			context.close();
 		}
 	}
 
 	@Test
 	public void planningFindAll() {
 
-		IPlanningRepository planningRepo = Application.getInstance().getPlanningRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
+		IPlanningRepository planningRepo = context.getBean(IPlanningRepository.class);
 
 		Planning planning1 = new Planning();
 		Planning planning2 = new Planning();
@@ -84,13 +95,17 @@ public class TestPlanning {
 			planningRepo.delete(planning1);
 			planningRepo.delete(planning2);
 			planningRepo.delete(planning3);
+			context.close();
 		}
 	}
 
 	@Test
 	public void planningDelete() {
 
-		IPlanningRepository planningRepo = Application.getInstance().getPlanningRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
+		IPlanningRepository planningRepo = context.getBean(IPlanningRepository.class);
 
 		Planning planning1 = new Planning();
 		Planning planning2 = new Planning();
@@ -117,7 +132,8 @@ public class TestPlanning {
 			
 			plannings = planningRepo.findAll();
 			
-			Assert.assertEquals(0, plannings.size());
+			Assert.assertEquals(0, plannings.size());		
+			context.close();
 		}
 	}
 

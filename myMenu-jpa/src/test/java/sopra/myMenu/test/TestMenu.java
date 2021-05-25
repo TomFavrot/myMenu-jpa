@@ -6,54 +6,58 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.myMenu.Application;
 import sopra.myMenu.model.Menu;
 import sopra.myMenu.repository.IMenuRepository;
 
 public class TestMenu {
 	@Test
 	public void menuCreate() {
-
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
+		IMenuRepository menuRepo = context.getBean(IMenuRepository.class);
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-		IMenuRepository menuRepo = Application.getInstance().getMenuRepo();
 
 		Menu menu1 = new Menu();
 
 		try {
 			menu1.setJour(sdf.parse("11-12-1993"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		menu1 = menuRepo.save(menu1);
 
-		Menu menuFind = menuRepo.findById(menu1.getId());
+		Menu menuFind = menuRepo.findById(menu1.getId()).get();
 
 		try {
 			Assert.assertEquals(sdf.parse("11-12-1993"), menuFind.getJour());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		menuRepo.delete(menu1);
+		context.close();
 	}
 
 	@Test
 	public void menuUpdate() {
 
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
+		IMenuRepository menuRepo = context.getBean(IMenuRepository.class);
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-		IMenuRepository menuRepo = Application.getInstance().getMenuRepo();
 
 		Menu menu1 = new Menu();
 		try {
 			menu1.setJour(sdf.parse("11-12-1993"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -62,30 +66,32 @@ public class TestMenu {
 		try {
 			menu1.setJour(sdf.parse("12-10-2021"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		menu1 = menuRepo.save(menu1);
 
-		Menu menuFind = menuRepo.findById(menu1.getId());
+		Menu menuFind = menuRepo.findById(menu1.getId()).get();
 
 		try {
 			Assert.assertEquals(sdf.parse("12-10-2021"), menuFind.getJour());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		menuRepo.delete(menu1);
+		context.close();
 	}
 
 	@Test
 	public void menuFindAll() {
 
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
+		IMenuRepository menuRepo = context.getBean(IMenuRepository.class);
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-		IMenuRepository menuRepo = Application.getInstance().getMenuRepo();
 
 		try {
 
@@ -110,17 +116,21 @@ public class TestMenu {
 			menuRepo.delete(menu3);
 
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		context.close();
 	}
 
 	@Test
 	public void menuDelete() {
 
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
+		IMenuRepository menuRepo = context.getBean(IMenuRepository.class);
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-		IMenuRepository menuRepo = Application.getInstance().getMenuRepo();
 
 		try {
 
@@ -149,9 +159,10 @@ public class TestMenu {
 			Assert.assertEquals(0, menus.size());
 
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		context.close();
 	}
 
 }
