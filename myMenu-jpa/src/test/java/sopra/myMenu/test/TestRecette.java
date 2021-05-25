@@ -42,7 +42,7 @@ public class TestRecette {
 						
 		recRepo.delete(rec1);
 		
-		
+		context.close();
 	}
 	
 	@Test	
@@ -75,6 +75,7 @@ public class TestRecette {
 		
 				
 		recRepo.delete(rec1);
+		context.close();
 	}
 	
 	@Test
@@ -103,7 +104,7 @@ public class TestRecette {
 		recRepo.delete(rec2);
 		recRepo.delete(rec3);
 			
-		
+		context.close();
 	}
 	
 
@@ -136,6 +137,7 @@ public class TestRecette {
 		recettes = recRepo.findAll();
 		
 		Assert.assertEquals(0, recettes.size());
+		context.close();
 	}
 }
 

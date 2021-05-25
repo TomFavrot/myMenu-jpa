@@ -34,6 +34,7 @@ public class TestPlat {
 		
 				
 		platRepo.delete(plat1);
+		context.close();
 		
 	}
 	
@@ -58,6 +59,7 @@ public class TestPlat {
 		
 				
 		platRepo.delete(plat1);
+		context.close();
 	}
 	
 	@Test
@@ -82,7 +84,7 @@ public class TestPlat {
 		platRepo.delete(plat1);
 		platRepo.delete(plat2);
 			
-		
+		context.close();
 	}
 	
 
@@ -112,6 +114,7 @@ public class TestPlat {
 		plats = platRepo.findAll();
 		
 		Assert.assertEquals(0, plats.size());
+		context.close();
 	}
 }
 
