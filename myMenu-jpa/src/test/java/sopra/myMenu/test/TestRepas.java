@@ -31,9 +31,9 @@ public class TestRepas {
 			Repas repasFind = repasRepo.findById(repas1.getId());
 
 			Assert.assertEquals(TypeRepas.PETIT_DEJ, repasFind.getTypeRepas());
-		} 
-		
-		finally {			
+		}
+
+		finally {
 			repasRepo.delete(repas1);
 		}
 	}
@@ -52,15 +52,15 @@ public class TestRepas {
 		repas1 = repasRepo.save(repas1);
 
 		Repas repasFind = repasRepo.findById(repas1.getId());
-		
+
 		try {
-			Assert.assertEquals(TypeRepas.DINNER, repasFind.getTypeRepas());	
-			
+			Assert.assertEquals(TypeRepas.DINNER, repasFind.getTypeRepas());
+
 		} finally {
 			repasRepo.delete(repas1);
 		}
 	}
-	
+
 	@Test
 	public void repasFindAll() {
 
@@ -77,9 +77,9 @@ public class TestRepas {
 		List<Repas> repas = repasRepo.findAll();
 
 		try {
-			Assert.assertEquals(3, repas.size());	
-		} 
-		
+			Assert.assertEquals(3, repas.size());
+		}
+
 		finally {
 			repasRepo.delete(repas1);
 			repasRepo.delete(repas2);
@@ -106,12 +106,12 @@ public class TestRepas {
 		try {
 			Assert.assertEquals(3, repas.size());
 		}
-		
+
 		finally {
 			repasRepo.delete(repas1);
 			repasRepo.delete(repas2);
 			repasRepo.delete(repas3);
-			
+
 			repas = repasRepo.findAll();
 
 			Assert.assertEquals(0, repas.size());
