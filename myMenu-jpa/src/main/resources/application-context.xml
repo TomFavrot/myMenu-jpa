@@ -24,8 +24,7 @@
 	<jpa:repositories base-package="sopra.myMenu.repository" repository-impl-postfix="CustomImpl"/>
 
 	<!-- On crée la dataSource -->
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp2.BasicDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="${db.driver}" />
 		<property name="url" value="${db.url}" />
 		<property name="username" value="${db.user}" />
