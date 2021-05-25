@@ -75,4 +75,81 @@ public class MagasinIngredientRepositoryJpa implements IMagasinIngredientReposit
 		return magasinIngredient;
 	}
 
+	@Override
+	public List<MagasinIngredient> findByCriteria(String criteria, String marque) {// critère = marque, bio ou local
+		List<MagasinIngredient> magasinIngredient = new ArrayList<MagasinIngredient>();
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			if(criteria.equals("marque")) {
+			TypedQuery<MagasinIngredient> query = em.createQuery("select e from MagasinIngredient e where e.marque= :marque ", MagasinIngredient.class);
+
+			query.setParameter("marque", marque);
+			magasinIngredient = query.getResultList();
+			}
+			else if(criteria.equals("bio")) {
+				TypedQuery<MagasinIngredient> query = em.createQuery("select e from MagasinIngredient e where e.bio=true ", MagasinIngredient.class);
+				magasinIngredient = query.getResultList();
+			}
+			else if(criteria.equals("produitLocal")) {
+				TypedQuery<MagasinIngredient> query = em.createQuery("select e from MagasinIngredient e where e.produitLocal=true ", MagasinIngredient.class);
+				magasinIngredient = query.getResultList();
+			}			
+			
+			
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return magasinIngredient;
+	}
+	
+	@Override
+	public List<MagasinIngredient> findByRisingPrice() {
+		List<MagasinIngredient> magasinIngredient = new ArrayList<MagasinIngredient>();
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<MagasinIngredient> query = em.createQuery("select e from MagasinIngredient e ORDER BY e.prix ASC", MagasinIngredient.class);
+			
+			magasinIngredient = query.getResultList();
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return magasinIngredient;
+	}
+
 }
