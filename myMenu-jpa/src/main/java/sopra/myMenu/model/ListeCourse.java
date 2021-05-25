@@ -1,6 +1,7 @@
 package sopra.myMenu.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,12 +14,12 @@ public class ListeCourse {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "AjustementQuantite_id") 
 	private AjustementQuantite ajustementQuantite;
 	
 	public ListeCourse() {
-		super();
+		super(); 
 	}
 
 	public Long getId() {
