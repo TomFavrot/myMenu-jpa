@@ -31,17 +31,307 @@ public class TestCamille {
 		IAjustementQuantiteRepository ajustementRepo = context.getBean(IAjustementQuantiteRepository.class);
 		AjustementQuantite ajustement = new AjustementQuantite();
 
-		ajustement.setQuantiteModifiee(2F);	
 
-		ajustement = ajustementRepo.save(ajustement); 
+	////////////////////////////////////////TEST LISTE COURSE/////////////////////////////////////////////
 
 		AjustementQuantite ajustementFind = ajustementRepo.findById(ajustement.getId()).get();
 
-		Assert.assertEquals((Float)2.0F, ajustementFind.getQuantiteModifiee());
-		ajustementRepo.delete(ajustement); 
+//	}	
+//}
+//	@Test
+//	public void listeCourseCreate() {
+//		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
+//		ListeCourse liste1 = new ListeCourse();	
+//		ListeCourse liste2 = new ListeCourse();
+//
+//		try {
+//			liste1 = listeRepo.save(liste1);
+//		} catch(PersistenceException e) {
+//		}
+//		try {
+//			liste2 = listeRepo.save(liste2);
+//		} catch(PersistenceException e) {
+//		}
+//
+//		List<ListeCourse> listeCourses = listeRepo.findAll();
+//		
+//		Assert.assertEquals(2, listeCourses.size());
+//
+//		listeRepo.delete(liste1);
+//		listeRepo.delete(liste2);
+//
+//	}	
 
-	}	
-
+//	@Test
+//	public void listeCourseUpdate() {
+//		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
+//		ListeCourse liste1 = new ListeCourse();	
+//		ListeCourse liste2 = new ListeCourse();	
+//		liste1 = listeRepo.save(liste1);
+//		liste1=liste2;
+//		liste1 = listeRepo.save(liste1);
+//
+//		ListeCourse listeFind = listeRepo.findById(liste1.getId());
+//
+////		Assert.assertEquals(liste1,listeFind);
+//		listeRepo.delete(liste1);
+//		listeRepo.delete(liste2);
+//	}	
+	
+//	@Test
+//	public void listeCourseFindAll() {
+//		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
+//		ListeCourse liste1 = new ListeCourse();	
+//		ListeCourse liste2 = new ListeCourse();	
+//
+//		liste1 = listeRepo.save(liste1);
+//		liste2 = listeRepo.save(liste2);			
+//
+//		List<ListeCourse> listeCourses = listeRepo.findAll();
+//
+//		Assert.assertEquals(2, listeCourses.size());//le delete du test precedent n'ayant pas fonctionné, on en a déjà 2+2
+//
+//		listeRepo.delete(liste1);
+//		listeRepo.delete(liste2);	
+//
+//	}
+//
+//	@Test
+//	public void mlisteCourseDelete() {
+//		IListeCourseRepository listeRepo = Application.getInstance().getListeCourseRepo();
+//		ListeCourse liste1 = new ListeCourse();	
+//		ListeCourse liste2 = new ListeCourse();	
+//
+//		liste1 = listeRepo.save(liste1);
+//		liste2 = listeRepo.save(liste2);			
+//
+//		List<ListeCourse> listeCourses = listeRepo.findAll();
+//		
+//		Assert.assertEquals(2, listeCourses.size());
+//
+//		listeRepo.delete(liste1);
+//		listeRepo.delete(liste2);	
+//		
+//		listeCourses = listeRepo.findAll();
+//
+//		Assert.assertEquals(0, listeCourses.size());
+//		
+//		listeRepo.delete(liste1);
+//		listeRepo.delete(liste2);	
+//
+//	}
+//
+//	//////////////////////////////////////// TEST MAGASIN INGREDIENTS/////////////////////////////////////////////
+//	@Test
+//	public void magasinIngredientCreate() {
+//		IMagasinIngredientRepository magasinIngredientRepo = Application.getInstance().getMagasiningredRepo();
+//		MagasinIngredient magasinIngred = new MagasinIngredient();
+//		magasinIngred.setBio(true);
+//		Date date1 = new Date();
+//		magasinIngred.setDatePeremption(date1);
+//		magasinIngred.setPrix(3.5F);
+//		magasinIngred.setProduitLocal(false);
+//		magasinIngred.setMarque("marque repère");
+//
+//		try {
+//			magasinIngred = magasinIngredientRepo.save(magasinIngred);
+//		} catch(PersistenceException e) {
+//		}
+//		MagasinIngredient magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId());
+//		Assert.assertEquals(true, magasinIngredFind.getBio());
+//		Assert.assertEquals(date1, magasinIngredFind.getDatePeremption());
+//		Assert.assertEquals((Float)3.5F, magasinIngredFind.getPrix());
+//		Assert.assertEquals(false, magasinIngredFind.getProduitLocal());
+//		Assert.assertEquals("marque repère", magasinIngredFind.getMarque());	
+//
+//		magasinIngredientRepo.delete(magasinIngred);
+//	} 
+//
+//	@Test
+//	public void magasinIngredientUpdate() {
+//		IMagasinIngredientRepository magasinIngredientRepo = Application.getInstance().getMagasiningredRepo();
+//		MagasinIngredient magasinIngred = new MagasinIngredient();
+//		magasinIngred.setBio(true);
+//		Date date1 = new Date();
+//		magasinIngred.setDatePeremption(date1);
+//		magasinIngred.setPrix(3.5F);
+//		magasinIngred.setProduitLocal(false);
+//		magasinIngred.setMarque("marque repère");		
+//
+//		magasinIngred = magasinIngredientRepo.save(magasinIngred);
+//		MagasinIngredient magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId());
+//
+//		magasinIngred.setBio(false);
+//		Date date2 = new Date();
+//		magasinIngred.setDatePeremption(date2);
+//		magasinIngred.setPrix(6F);
+//		magasinIngred.setProduitLocal(true); 
+//		magasinIngred.setMarque("Marie");		
+//
+//		magasinIngred = magasinIngredientRepo.save(magasinIngred);
+//		magasinIngredFind = magasinIngredientRepo.findById(magasinIngred.getId());
+//
+//		Assert.assertEquals(false, magasinIngredFind.getBio());
+//		Assert.assertEquals(date2, magasinIngredFind.getDatePeremption());
+//		Assert.assertEquals((Float)6F, magasinIngredFind.getPrix());
+//		Assert.assertEquals(true, magasinIngredFind.getProduitLocal());
+//		Assert.assertEquals("Marie", magasinIngredFind.getMarque());
+//
+//		magasinIngredientRepo.delete(magasinIngred); 
+//
+//	}
+//
+//	@Test
+//	public void magasinIngredientFindAll() {
+//
+//		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
+//		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
+//
+//		magasinIngred1.setBio(true);
+//		Date date1 = new Date();
+//		magasinIngred1.setDatePeremption(date1);
+//		magasinIngred1.setPrix(3.5F);
+//		magasinIngred1.setProduitLocal(false);
+//		magasinIngred1.setMarque("marque repère");
+//
+//		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);		
+//
+//		MagasinIngredient magasinIngred2 = new MagasinIngredient();
+//
+//		magasinIngred2.setBio(false);
+//		Date date2= new Date();
+//		magasinIngred2.setDatePeremption(date2);
+//		magasinIngred2.setPrix(5F);
+//		magasinIngred2.setProduitLocal(true);
+//		magasinIngred2.setMarque("Marie");
+//
+//		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);			
+//
+//		List<MagasinIngredient> magasinIngredients = magasinIngredRepo.findAll();
+//
+//		Assert.assertEquals(2, magasinIngredients.size());
+//
+//		magasinIngredRepo.delete(magasinIngred1);
+//		magasinIngredRepo.delete(magasinIngred2);		
+//
+//	}
+//
+//	@Test
+//	public void magasinIngredientDelete() {
+//
+//		IMagasinIngredientRepository magasinIngredRepo = Application.getInstance().getMagasiningredRepo();		
+//		MagasinIngredient magasinIngred1 = new MagasinIngredient(); 
+//		MagasinIngredient magasinIngred2 = new MagasinIngredient(); 
+//
+//		magasinIngred1 = magasinIngredRepo.save(magasinIngred1);
+//		magasinIngred2 = magasinIngredRepo.save(magasinIngred2);	
+//
+//		List<MagasinIngredient> magasinIngredients = magasinIngredRepo.findAll();
+//
+//		Assert.assertEquals(2, magasinIngredients.size());
+//
+//		magasinIngredRepo.delete(magasinIngred1);
+//		magasinIngredRepo.delete(magasinIngred2);		
+//
+//		magasinIngredients = magasinIngredRepo.findAll();
+//
+//		Assert.assertEquals(0, magasinIngredients.size());
+//
+//	}
+//
+//	////////////////////////////////////////TEST MAGASIN /////////////////////////////////////////////
+//	@Test
+//	public void magasinCreate() {
+//		IMagasinRepository magasinRepo = Application.getInstance().getMagasinRepo();
+//		Magasin magasin = new Magasin();
+//
+//		magasin.setNom("Carrefour");
+//		magasin.setSiret("123456789");
+//
+//		try {
+//			magasin = magasinRepo.save(magasin);
+//		} catch(PersistenceException e) {
+//		}
+//		Magasin magasinFind = magasinRepo.findById(magasin.getId());
+//
+//		Assert.assertEquals("Carrefour", magasinFind.getNom());	
+//		Assert.assertEquals("123456789", magasinFind.getSiret());	
+//
+//		magasinRepo.delete(magasin); 
+//	}
+//
+//	@Test
+//	public void magasinUpdate() {
+//		IMagasinRepository magasinRepo = Application.getInstance().getMagasinRepo();
+//		Magasin magasin = new Magasin();
+//
+//		magasin.setNom("Carrefour");
+//		magasin.setSiret("123456789");		
+//
+//		magasin = magasinRepo.save(magasin);		
+//		Magasin magasinFind = magasinRepo.findById(magasin.getId());
+//
+//		magasin.setNom("Leclerc"); 
+//		magasin.setSiret("987654321");	 
+//
+//		magasin = magasinRepo.save(magasin);		
+//		magasinFind = magasinRepo.findById(magasin.getId());
+//
+//		Assert.assertEquals("Leclerc", magasinFind.getNom());	
+//		Assert.assertEquals("987654321", magasinFind.getSiret());	
+//
+//		magasinRepo.delete(magasin);
+//	}
+//
+//	@Test
+//	public void magasinFindAll() {
+//
+//		IMagasinRepository magasinRepo = Application.getInstance().getMagasinRepo();		
+//		Magasin magasin1 = new Magasin(); 
+//
+//		magasin1.setNom("Carrefour");
+//		magasin1.setSiret("123456789");		
+//
+//		magasin1 = magasinRepo.save(magasin1);		 
+//
+//		Magasin magasin2 = new Magasin(); 
+//
+//		magasin2.setNom("Leclerc"); 
+//		magasin2.setSiret("987654321");	 
+//
+//		magasin2 = magasinRepo.save(magasin2);			
+//
+//		List<Magasin> magasins = magasinRepo.findAll();
+//
+//		Assert.assertEquals(2, magasins.size());
+//
+//		magasinRepo.delete(magasin1);
+//		magasinRepo.delete(magasin2);		
+//	}
+//
+//	@Test
+//	public void magasinDelete() {
+//
+//		IMagasinRepository magasinRepo = Application.getInstance().getMagasinRepo();		
+//		Magasin magasin1 = new Magasin(); 
+//		Magasin magasin2 = new Magasin(); 
+//
+//		magasin1 = magasinRepo.save(magasin1);
+//		magasin2 = magasinRepo.save(magasin2);	
+//
+//		List<Magasin> magasin = magasinRepo.findAll();
+//
+//		Assert.assertEquals(2, magasin.size());
+//
+//		magasinRepo.delete(magasin1);
+//		magasinRepo.delete(magasin2);		
+//
+//		magasin = magasinRepo.findAll();
+//
+//		Assert.assertEquals(0, magasin.size());
+//
+//	}
+//}
 	@Test
 	public void ajustementCreateAvecLiens() {
 		
@@ -168,24 +458,21 @@ public class TestCamille {
 		ingredient1.setAjustementQuantite(ajustement1);
 		
 		ingredient1 = ingredientRepo.save(ingredient1);
-
 		ajustement1 = ajustementRepo.save(ajustement1);	
 
 		IListeCourseRepository listeCourseRepo = context.getBean(IListeCourseRepository.class);
 		ListeCourse listeCourse1 = new ListeCourse();
-
 		listeCourse1.setAjustementQuantite(ajustement1);
 		listeCourse1 = listeCourseRepo.save(listeCourse1);
 		
 		List<Ingredient> ingredients = ingredientRepo.findAll();
 		
-		ajustement1.setIngredients(ingredients);
+		ajustement1.setIngredient(ingredients);
 		
 		ajustementRepo.save(ajustement1);
 		ListeCourse listeFind = listeCourseRepo.findById(listeCourse1.getId()).get();
 		
 		Assert.assertEquals((Float)2F,listeFind.getAjustementQuantite().getQuantiteModifiee());			
-
 		listeCourseRepo.delete(listeCourse1);
 		ajustementRepo.delete(ajustement1);
 		ingredientRepo.delete(ingredient1);

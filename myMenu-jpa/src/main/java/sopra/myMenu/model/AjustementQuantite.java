@@ -58,11 +58,11 @@ public class AjustementQuantite {
 		this.listeCourse = listeCourse;
 	}
 
-	public List<Ingredient> getIngredients() {
+	public List<Ingredient> getIngredient() {
 		return ingredients;
 	}
 
-	public void setIngredients(List<Ingredient> ingredients) {
+	public void setIngredient(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 

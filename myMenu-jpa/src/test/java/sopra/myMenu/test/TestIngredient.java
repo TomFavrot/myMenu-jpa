@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.myMenu.Application;
+
 import sopra.myMenu.model.Ingredient;
 import sopra.myMenu.model.ProduitSaison;
 import sopra.myMenu.model.TypeProduit;
@@ -17,8 +18,9 @@ public class TestIngredient {
 	@Test	
 	public void IngredientCreate() {
 		
-		IIngredientRepository ingRepo = Application.getInstance().getIngredientRepo();
-		
+			ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IIngredientRepository ingRepo = context.getBean(IIngredientRepository.class);
 		
 		Ingredient  ing1 = new Ingredient ();
 		ing1.setNom("poulet");
@@ -29,7 +31,7 @@ public class TestIngredient {
 			
 		ing1 = ingRepo.save(ing1);
 		
-		Ingredient  ingFind = ingRepo.findById(ing1.getId());
+		Ingredient  ingFind = ingRepo.findById(ing1.getId()).get();
 		
 		Assert.assertEquals("poulet", ingFind.getNom());
 		Assert.assertEquals((Float)200F, ingFind.getQuantite());
@@ -47,7 +49,9 @@ public class TestIngredient {
 	@Test	
 	public void IngredientUpdate() {
 		
-		IIngredientRepository ingRepo = Application.getInstance().getIngredientRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IIngredientRepository ingRepo = context.getBean(IIngredientRepository.class);
 		
 		Ingredient  ing1 = new Ingredient();
 		
@@ -67,7 +71,7 @@ public class TestIngredient {
 		ing1.setTypeProduit(TypeProduit.LEGUMES);	
 			
 		ing1 = ingRepo.save(ing1);
-		Ingredient ingFind = ingRepo.findById(ing1.getId());
+		Ingredient ingFind = ingRepo.findById(ing1.getId()).get();
 		
 		Assert.assertEquals("poulet", ingFind.getNom());
 		Assert.assertEquals((Float)200F, ingFind.getQuantite());
@@ -82,7 +86,9 @@ public class TestIngredient {
 	@Test
 	public void IngredientFindAll() {
 		
-		IIngredientRepository ingRepo = Application.getInstance().getIngredientRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IIngredientRepository ingRepo = context.getBean(IIngredientRepository.class);
 		
 		Ingredient  ing1 = new Ingredient ();
 						
@@ -128,7 +134,9 @@ public class TestIngredient {
 	@Test
 	public void IngredientDelete() {
 		
-	IIngredientRepository ingRepo = Application.getInstance().getIngredientRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IIngredientRepository ingRepo = context.getBean(IIngredientRepository.class);
 		
 		Ingredient  ing1 = new Ingredient ();
 						

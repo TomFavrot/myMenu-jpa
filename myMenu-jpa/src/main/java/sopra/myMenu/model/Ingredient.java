@@ -15,14 +15,19 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 
 
 @Entity
 @Table(name = "ingredient")
 public class Ingredient {
+	
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "nom")
 	private String nom;
 	@Column(name = "quantite")
@@ -147,6 +152,16 @@ public class Ingredient {
 
 	public void setMagasinIngredient(MagasinIngredient magasinIngredient) {
 		this.magasinIngredient = magasinIngredient;
+	}
+
+
+	public int getVersion() {
+		return version;
+	}
+
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 
