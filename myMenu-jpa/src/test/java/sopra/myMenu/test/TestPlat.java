@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.myMenu.Application;
+
 import sopra.myMenu.model.Plat;
+
 import sopra.myMenu.repository.IPlatRepository;
 
 
@@ -15,13 +17,16 @@ public class TestPlat {
 	@Test	
 	public void platCreate() {
 		
-		IPlatRepository platRepo = Application.getInstance().getPlatRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 		
 		Plat plat1 = new Plat(2);
 		
 		plat1 = platRepo.save(plat1);
 		
-		Plat platFind = platRepo.findById(plat1.getId());
+		Plat platFind = platRepo.findById(plat1.getId()).get();
 		
 		
 		
@@ -35,7 +40,9 @@ public class TestPlat {
 	@Test	
 	public void platUpdate() {
 		
-		IPlatRepository platRepo = Application.getInstance().getPlatRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 		
 		Plat plat1 = new Plat(2);
 		
@@ -45,7 +52,7 @@ public class TestPlat {
 		plat1.setNombrePersonne(4);
 			
 		plat1 = platRepo.save(plat1);
-		Plat platFind = platRepo.findById(plat1.getId());
+		Plat platFind = platRepo.findById(plat1.getId()).get();
 		
 		Assert.assertEquals(4, platFind.getNombrePersonne());;
 		
@@ -56,7 +63,9 @@ public class TestPlat {
 	@Test
 	public void platFindAll() {
 		
-		IPlatRepository platRepo = Application.getInstance().getPlatRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 		
 		Plat plat1 = new Plat(3);
 						
@@ -80,7 +89,9 @@ public class TestPlat {
 	@Test
 	public void platDelete() {
 		
-		IPlatRepository platRepo = Application.getInstance().getPlatRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 		
 		Plat plat1 = new Plat(2);
 						
