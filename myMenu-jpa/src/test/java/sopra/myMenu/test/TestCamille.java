@@ -23,6 +23,7 @@ import sopra.myMenu.repository.IMagasinRepository;
 public class TestCamille {
 
 	////////////////////////////////////////TEST AJUSTEMENT QUANTITE/////////////////////////////////////////////
+	//push2//
 	@Test
 	public void ajustementCreateSimple() {
 		
