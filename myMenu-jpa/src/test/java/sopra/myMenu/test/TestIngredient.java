@@ -42,7 +42,7 @@ public class TestIngredient {
 		
 				
 		ingRepo.delete(ing1);
-		
+		context.close();
 		
 	}
 	
@@ -81,6 +81,7 @@ public class TestIngredient {
 		
 				
 		ingRepo.delete(ing1);
+		context.close();
 	}
 	
 	@Test
@@ -127,7 +128,7 @@ public class TestIngredient {
 		ingRepo.delete(ing2);
 		ingRepo.delete(ing3);
 			
-		
+		context.close();
 	}
 	
 
@@ -177,7 +178,9 @@ public class TestIngredient {
 		ingredients = ingRepo.findAll();
 		
 		Assert.assertEquals(0, ingredients.size());
+		context.close();
 	}
+	
 }
 
 

@@ -12,12 +12,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 @Entity
 @Table(name="Magasin")
 public class Magasin {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "nom")
 	private String nom;
 	@Column(name = "siret")
@@ -70,6 +74,14 @@ public class Magasin {
 
 	public void setAdresses(List<Adresse> adresses) {
 		this.adresses = adresses;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 	

@@ -8,12 +8,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 @Entity
 @Table(name="ListeCourse")
 public class ListeCourse {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "AjustementQuantite_id") 
 	private AjustementQuantite ajustementQuantite;
@@ -36,6 +40,14 @@ public class ListeCourse {
 
 	public void setAjustementQuantite(AjustementQuantite ajustementQuantite) {
 		this.ajustementQuantite = ajustementQuantite;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 	

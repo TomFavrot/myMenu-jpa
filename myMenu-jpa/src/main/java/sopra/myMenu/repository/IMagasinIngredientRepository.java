@@ -2,14 +2,14 @@ package sopra.myMenu.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import sopra.myMenu.model.MagasinIngredient;
 
-public interface IMagasinIngredientRepository extends IRepository<MagasinIngredient, Long>{
+public interface IMagasinIngredientRepository extends JpaRepository<MagasinIngredient, Long>{
 
-//	List<MagasinIngredient> findByBrand(String marque);
-
-	List<MagasinIngredient> findByRisingPrice();
-
-	List<MagasinIngredient> findByCriteria(String criteria, String marque);
+//	List<MagasinIngredient> findByRisingPrice();
+//
+//	List<MagasinIngredient> findByCriteria(String criteria, String marque);
 
 }

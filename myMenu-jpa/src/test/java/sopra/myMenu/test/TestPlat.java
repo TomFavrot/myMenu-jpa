@@ -11,8 +11,6 @@ import sopra.myMenu.model.Plat;
 
 import sopra.myMenu.repository.IPlatRepository;
 
-
-
 public class TestPlat {
 	@Test	
 	public void platCreate() {
@@ -23,7 +21,7 @@ public class TestPlat {
 			IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 		
 		Plat plat1 = new Plat(2);
-		
+
 		plat1 = platRepo.save(plat1);
 		
 		Plat platFind = platRepo.findById(plat1.getId()).get();
@@ -31,13 +29,13 @@ public class TestPlat {
 		
 		
 		Assert.assertEquals(2, platFind.getNombrePersonne());
-		
-				
+
 		platRepo.delete(plat1);
+		context.close();
 		
 	}
-	
-	@Test	
+
+	@Test
 	public void platUpdate() {
 		
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -45,12 +43,11 @@ public class TestPlat {
 			IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 		
 		Plat plat1 = new Plat(2);
-		
+
 		plat1 = platRepo.save(plat1);
-				
-		
+
 		plat1.setNombrePersonne(4);
-			
+
 		plat1 = platRepo.save(plat1);
 		Plat platFind = platRepo.findById(plat1.getId()).get();
 		
@@ -58,8 +55,9 @@ public class TestPlat {
 		
 				
 		platRepo.delete(plat1);
+		context.close();
 	}
-	
+
 	@Test
 	public void platFindAll() {
 		
@@ -68,23 +66,21 @@ public class TestPlat {
 			IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 		
 		Plat plat1 = new Plat(3);
-						
+
 		Plat plat2 = new Plat(3);
 
 		plat1 = platRepo.save(plat1);
 		plat2 = platRepo.save(plat2);
-			
-		
+
 		List<Plat> plats = platRepo.findAll();
-		
+
 		Assert.assertEquals(2, plats.size());
-		
+
 		platRepo.delete(plat1);
 		platRepo.delete(plat2);
 			
-		
+		context.close();
 	}
-	
 
 	@Test
 	public void platDelete() {
@@ -94,25 +90,24 @@ public class TestPlat {
 			IPlatRepository platRepo = context.getBean(IPlatRepository.class);
 		
 		Plat plat1 = new Plat(2);
-						
+
 		Plat plat2 = new Plat(2);
 
 		plat1 = platRepo.save(plat1);
 		plat2 = platRepo.save(plat2);
-			
-		
+
 		List<Plat> plats = platRepo.findAll();
-		
+
 		Assert.assertEquals(2, plats.size());
-		
+
 		platRepo.delete(plat1);
 		platRepo.delete(plat2);
-		
-		
+
 		plats = platRepo.findAll();
+
+		Assert.assertEquals(0, plats.size());
 		
 		Assert.assertEquals(0, plats.size());
+		context.close();
 	}
 }
-
-

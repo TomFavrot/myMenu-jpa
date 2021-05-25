@@ -11,17 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 @Entity
 @Table(name="AjustementQuantite")
 public class AjustementQuantite {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "quantiteModifiee")
 	private Float quantiteModifiee;
 	@OneToMany(mappedBy = "ajustementQuantite")
 	private List<ListeCourse> listeCourse=new ArrayList<ListeCourse>();
-	@OneToMany(mappedBy = "ajustementQuantite",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "ajustementQuantite")
 	private List<Ingredient> ingredients=new ArrayList<Ingredient>();
 	
 	
@@ -54,12 +58,20 @@ public class AjustementQuantite {
 		this.listeCourse = listeCourse;
 	}
 
-	public List<Ingredient> getIngredient() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredient(List<Ingredient> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	
