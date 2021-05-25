@@ -14,12 +14,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 @Entity
 @Table(name = "menu")
 public class Menu {
 		@Id
 		@GeneratedValue
 		private Long id;
+		@Version
+		private int version;
 		@Column(name = "jour")
 		private Date jour;
 		@Column(name = "periode")
@@ -87,7 +91,12 @@ public class Menu {
 		public void setPlanning(Planning planning) {
 			this.planning = planning;
 		}	
-		
-		
-		
+			
+		public int getVersion() {
+			return version;
+		}
+
+		public void setVersion(int version) {
+			this.version = version;
+		}
 }
