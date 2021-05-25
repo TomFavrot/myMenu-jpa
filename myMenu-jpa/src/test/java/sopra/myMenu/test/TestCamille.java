@@ -40,6 +40,8 @@ public class TestCamille {
 
 		Assert.assertEquals((Float)2.0F, ajustementFind.getQuantiteModifiee());
 		ajustementRepo.delete(ajustement); 
+		
+		context.close();
 
 	}	
 
@@ -71,6 +73,8 @@ public class TestCamille {
 		
 		ingredientRepo.delete(ingredient1); 
 		ajustementRepo.delete(ajustement1);
+		
+		context.close();
 
 	}	
 
@@ -92,6 +96,8 @@ public class TestCamille {
 
 		Assert.assertEquals((Float)6F, ajustementFind.getQuantiteModifiee());
 		ajustementRepo.delete(ajustement);
+		
+		context.close();
 
 	}	
 
@@ -115,6 +121,8 @@ public class TestCamille {
 
 		ajustementRepo.delete(ajustement1);
 		ajustementRepo.delete(ajustement2);		
+		
+		context.close();
 
 	}
 
@@ -143,7 +151,7 @@ public class TestCamille {
 		Assert.assertEquals(0, ajustements.size());
 		ajustementRepo.delete(ajustement1);
 		ajustementRepo.delete(ajustement2);	
-		
+		context.close();
 	}
 
 
@@ -166,11 +174,11 @@ public class TestCamille {
 		AjustementQuantite ajustement1 = new AjustementQuantite();
 		ajustement1.setQuantiteModifiee(2F);
 		
+		ajustement1 = ajustementRepo.save(ajustement1);	
+		
 		ingredient1.setAjustementQuantite(ajustement1);
 		
 		ingredient1 = ingredientRepo.save(ingredient1);
-
-		ajustement1 = ajustementRepo.save(ajustement1);	
 
 		IListeCourseRepository listeCourseRepo = context.getBean(IListeCourseRepository.class);
 		ListeCourse listeCourse1 = new ListeCourse();
@@ -182,14 +190,18 @@ public class TestCamille {
 		
 		ajustement1.setIngredients(ingredients);
 		
-		ajustementRepo.save(ajustement1);
+		ajustement1 = ajustementRepo.save(ajustement1);
+		
 		ListeCourse listeFind = listeCourseRepo.findById(listeCourse1.getId()).get();
 		
 		Assert.assertEquals((Float)2F,listeFind.getAjustementQuantite().getQuantiteModifiee());			
 
 		listeCourseRepo.delete(listeCourse1);
-		ajustementRepo.delete(ajustement1);
+		
 		ingredientRepo.delete(ingredient1);
+		
+		ajustementRepo.delete(ajustement1);		
+		context.close();
 	}
 
 	@Test
@@ -216,6 +228,7 @@ public class TestCamille {
 
 		listeRepo.delete(liste1);
 		listeRepo.delete(liste2);
+		context.close();
 	}	
 
 	@Test
@@ -260,6 +273,7 @@ public class TestCamille {
 		listeCourseRepo.delete(listeCourse);
 		ingredientRepo.delete(ingredient);		
 		ajustementRepo.delete(ajustement);
+		context.close();
 
 	}	
 
@@ -281,7 +295,7 @@ public class TestCamille {
 
 		listeRepo.delete(liste1);
 		listeRepo.delete(liste2);	
-
+		context.close();
 	}
 
 	@Test
@@ -309,7 +323,7 @@ public class TestCamille {
 
 		listeRepo.delete(liste1);
 		listeRepo.delete(liste2);	
-
+		context.close();
 	}
 
 	//////////////////////////////////////// TEST MAGASIN INGREDIENTS/////////////////////////////////////////////
@@ -339,6 +353,7 @@ public class TestCamille {
 		Assert.assertEquals("marque repère", magasinIngredFind.getMarque());	
 
 		magasinIngredientRepo.delete(magasinIngred);
+		context.close();
 	} 
 
 	@Test
@@ -375,6 +390,7 @@ public class TestCamille {
 		Assert.assertEquals("Marie", magasinIngredFind.getMarque());
 
 		magasinIngredientRepo.delete(magasinIngred); 
+		context.close();
 
 	}
 
@@ -412,7 +428,8 @@ public class TestCamille {
 		Assert.assertEquals(2, magasinIngredients.size());
 
 		magasinIngredRepo.delete(magasinIngred1);
-		magasinIngredRepo.delete(magasinIngred2);		
+		magasinIngredRepo.delete(magasinIngred2);	
+		context.close();
 
 	}
 
@@ -441,7 +458,8 @@ public class TestCamille {
 		Assert.assertEquals(0, magasinIngredients.size());
 		
 		magasinIngredRepo.delete(magasinIngred1);
-		magasinIngredRepo.delete(magasinIngred2);	
+		magasinIngredRepo.delete(magasinIngred2);
+		context.close();
 
 	}
 	
@@ -576,6 +594,8 @@ public class TestCamille {
 		Assert.assertEquals("123456789", magasinFind.getSiret());	
 
 		magasinRepo.delete(magasin); 
+		
+		context.close();
 	}
 
 	@Test
@@ -602,6 +622,8 @@ public class TestCamille {
 		Assert.assertEquals("987654321", magasinFind.getSiret());	
 
 		magasinRepo.delete(magasin);
+		
+		context.close();
 	}
 
 	@Test
@@ -630,7 +652,9 @@ public class TestCamille {
 		Assert.assertEquals(2, magasins.size());
 
 		magasinRepo.delete(magasin1);
-		magasinRepo.delete(magasin2);		
+		magasinRepo.delete(magasin2);	
+		
+		context.close();
 	}
 
 	@Test
@@ -656,6 +680,8 @@ public class TestCamille {
 		magasin = magasinRepo.findAll();
 
 		Assert.assertEquals(0, magasin.size());
+		
+		context.close();
 
 	}
 }
