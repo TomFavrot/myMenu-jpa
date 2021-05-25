@@ -13,13 +13,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 
 @Entity
 @Table(name = "recette")
 public class Recette {
+	
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "nom")
 	private String nom;
 	@Column(name = "etapes")
@@ -111,6 +116,22 @@ public class Recette {
 
 	public void setPlat(Plat plat) {
 		this.plat = plat;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public TypeAlimentation getTypeAlimentation() {
+		return typeAlimentation;
+	}
+
+	public void setTypeAlimentation(TypeAlimentation typeAlimentation) {
+		this.typeAlimentation = typeAlimentation;
 	}
 	
 	

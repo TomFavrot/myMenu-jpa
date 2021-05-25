@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.myMenu.Application;
 
 import sopra.myMenu.model.Recette;
 import sopra.myMenu.model.TypeAlimentation;
@@ -18,7 +18,10 @@ public class TestRecette {
 	@Test	
 	public void RecetteCreate() {
 		
-		IRecetteRepository recRepo = Application.getInstance().getRecetteRepo();
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
 	
 		
 		
@@ -27,7 +30,7 @@ public class TestRecette {
 			
 		rec1 = recRepo.save(rec1);
 		
-		Recette recFind = recRepo.findById(rec1.getId());
+		Recette recFind = recRepo.findById(rec1.getId()).get();
 		
 		Assert.assertEquals("couscous", recFind.getNom());
 		Assert.assertEquals( "mettre les legumes et le poulet", recFind.getEtapes());
@@ -45,7 +48,9 @@ public class TestRecette {
 	@Test	
 	public void RecetteUpdate() {
 		
-		IRecetteRepository recRepo = Application.getInstance().getRecetteRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
 		
 		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
 		
@@ -60,7 +65,7 @@ public class TestRecette {
 		
 			
 		rec1 = recRepo.save(rec1);
-		Recette recFind = recRepo.findById(rec1.getId());
+		Recette recFind = recRepo.findById(rec1.getId()).get();
 		
 		Assert.assertEquals("tartiflette", recFind.getNom());
 		Assert.assertEquals( "patate et reblochon", recFind.getEtapes());
@@ -75,7 +80,9 @@ public class TestRecette {
 	@Test
 	public void RecetteFindAll() {
 		
-		IRecetteRepository recRepo = Application.getInstance().getRecetteRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
 		
 		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
 						
@@ -103,7 +110,9 @@ public class TestRecette {
 	@Test
 	public void RecetteDelete() {
 		
-IRecetteRepository recRepo = Application.getInstance().getRecetteRepo();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+			IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
 		
 		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
 						
