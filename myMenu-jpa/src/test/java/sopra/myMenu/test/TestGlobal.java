@@ -14,8 +14,11 @@ public class TestGlobal {
 		tc.magasinIngredientDelete();
 		tc.magasinIngredientFindAll();
 		tc.magasinIngredientUpdate();
-		//tc.magasinIngredientFindByRisingPrice();
-		//tc.magasinIngredientFindByCriteria();
+		tc.magasinIngredientFindByRisingPrice();
+		tc.magasinIngredientFindAllBio();
+		tc.magasinIngredientFindAllProduitLocal();
+		tc.magasinIngredientFindByBrand();
+		tc.magasinIngredientFindByMagasin();
 		tc.ajustementCreateSimple();
 		tc.ajustementCreateAvecLiens();
 		tc.ajustementFindAll();
@@ -30,6 +33,10 @@ public class TestGlobal {
 		tc.magasinDelete();
 		tc.magasinFindAll();
 		tc.magasinUpdate();
+		tc.magasinFindByName();
+		tc.magasinFindBySiret();
+		tc.magasinFindByVille();
+		tc.magasinFindByZipCode();
 		
 		
 		TestPlat tp = new TestPlat();
