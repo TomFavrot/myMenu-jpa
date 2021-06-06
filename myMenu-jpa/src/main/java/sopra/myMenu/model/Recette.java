@@ -36,7 +36,7 @@ public class Recette {
 	@Column(name = "note")
 	private float note;
 	@Enumerated(EnumType.STRING)
-	//@Column(name = "type_Alimentation")
+	
 	private TypeAlimentation typeAlimentation;
 	
 	@ManyToMany(mappedBy="recettes")

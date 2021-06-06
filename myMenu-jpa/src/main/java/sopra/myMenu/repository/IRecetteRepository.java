@@ -8,8 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 
 import sopra.myMenu.model.Recette;
+import sopra.myMenu.model.TypeAlimentation;
+
 
 public interface IRecetteRepository extends JpaRepository<Recette, Long>{
+	
 	@Query("select r from Recette r where r.nom= :nom")
 	List<Recette> findByName(@Param("nom") String nom);
 	
@@ -19,6 +22,6 @@ public interface IRecetteRepository extends JpaRepository<Recette, Long>{
 	@Query("select r from Recette r where r.note= :note")
 	List<Recette> findByNote(@Param("note") float note);
 	
-	@Query("select r from Recette r where r.type_alimentation= :type_alimentation")
-	List<Recette> findByTypeAlimentation(@Param("type_alimentation") String type_alimentation);
+//	@Query("select t from Recette r where r.typeAlimentation= :typeAlimentation")
+//	List<Recette> findByTypeAlimentation(@Param("typeAlimentation") TypeAlimentation typeAlimentation);
 }

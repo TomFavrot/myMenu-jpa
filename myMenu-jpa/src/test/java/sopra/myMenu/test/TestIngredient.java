@@ -181,6 +181,52 @@ public class TestIngredient {
 		context.close();
 	}
 	
+	@Test
+	public void findByName() {
+	
+	
+	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+			"classpath:application-context.xml");
+		IIngredientRepository ingRepo = context.getBean(IIngredientRepository.class);
+	
+	Ingredient  ing1 = new Ingredient ();
+					
+	Ingredient  ing2 = new Ingredient ();
+	
+	Ingredient  ing3 = new Ingredient ();
+	
+	ing1.setNom("tomate");
+	ing1.setQuantite((Float)100F);
+	ing1.setNombreCalories100g((Float)10F);
+	ing1.setProduitSaison(ProduitSaison.ETE);
+	ing1.setTypeProduit(TypeProduit.VIANDE);
+	
+	ing2.setNom("poulet");
+	ing2.setQuantite((Float)200F);
+	ing2.setNombreCalories100g((Float)300F);
+	ing2.setProduitSaison(ProduitSaison.HIVER);
+	ing2.setTypeProduit(TypeProduit.LEGUMES);	
+	
+	ing3.setNom("coca");
+	ing3.setQuantite((Float)20F);
+	ing3.setNombreCalories100g((Float)300F);
+	ing3.setProduitSaison(ProduitSaison.ETE);
+	ing3.setTypeProduit(TypeProduit.BOISSON);
+
+	ing1 = ingRepo.save(ing1);
+	ing2 = ingRepo.save(ing2);
+	ing3 = ingRepo.save(ing3);
+		
+	
+	List<Ingredient> ingredientsParNom  = ingRepo.findByName("poulet");
+	try {
+		
+		Assert.assertEquals(ing2.getId(), ingredientsParNom.get(0).getId());
+				
+	}finally {
+	ingRepo.delete(ing1);
+	ingRepo.delete(ing2);
+	ingRepo.delete(ing3);
+	}
 }
-
-
+}
