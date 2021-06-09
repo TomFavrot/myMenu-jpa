@@ -25,7 +25,7 @@ public class TestRecette {
 	
 		
 		
-		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
+		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800,5F, TypeAlimentation.HALAL);
 			
 			
 		rec1 = recRepo.save(rec1);
@@ -52,7 +52,7 @@ public class TestRecette {
 				"classpath:application-context.xml");
 			IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
 		
-		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
+		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800,5F, TypeAlimentation.HALAL);
 		
 		rec1 = recRepo.save(rec1);
 		
@@ -85,11 +85,11 @@ public class TestRecette {
 				"classpath:application-context.xml");
 			IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
 		
-		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
+		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800,5F, TypeAlimentation.HALAL);
 						
-		Recette rec2 = new Recette("tartiflette", "patate et reblochon", 5, 800, TypeAlimentation.NONE);
+		Recette rec2 = new Recette("tartiflette", "patate et reblochon", 5, 800,5F, TypeAlimentation.NONE);
 		
-		Recette rec3 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
+		Recette rec3 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800,5F, TypeAlimentation.HALAL);
 
 		rec1 = recRepo.save(rec1);
 		rec2 = recRepo.save(rec2);
@@ -115,11 +115,11 @@ public class TestRecette {
 				"classpath:application-context.xml");
 			IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
 		
-		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
+		Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800,5F, TypeAlimentation.HALAL);
 						
-		Recette rec2 = new Recette("tartiflette", "patate et reblochon", 5, 800, TypeAlimentation.NONE);
+		Recette rec2 = new Recette("tartiflette", "patate et reblochon", 5, 800,5F, TypeAlimentation.NONE);
 		
-		Recette rec3 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800, TypeAlimentation.HALAL);
+		Recette rec3 = new Recette("couscous", "mettre les legumes et le poulet", 5, 800,5F, TypeAlimentation.HALAL);
 
 		rec1 = recRepo.save(rec1);
 		rec2 = recRepo.save(rec2);
@@ -139,6 +139,59 @@ public class TestRecette {
 		Assert.assertEquals(0, recettes.size());
 		context.close();
 	}
+	@Test
+	public void findByRisingCalories() {
+	
+	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+			"classpath:application-context.xml");
+		IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
+	
+	Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 200,5F, TypeAlimentation.HALAL);
+					
+	Recette rec2 = new Recette("tartiflette", "patate et reblochon", 5, 800,5F, TypeAlimentation.NONE);
+	
+	Recette rec3 = new Recette("couscous", "mettre les legumes et le poulet", 5, 10,5F, TypeAlimentation.HALAL);
+
+	rec1 = recRepo.save(rec1);
+	rec2 = recRepo.save(rec2);
+	rec3 = recRepo.save(rec3);
+	
+	List<Recette> recettesParCalories = recRepo.findByRisingCalories();
+	try {
+		Assert.assertEquals(rec1.getId(), recettesParCalories.get(1).getId());
+		Assert.assertEquals(rec2.getId(), recettesParCalories.get(2).getId());
+		Assert.assertEquals(rec3.getId(), recettesParCalories.get(0).getId());
+	}finally{
+		recRepo.delete(rec1);
+		recRepo.delete(rec2);
+		recRepo.delete(rec3);
+	}
+	
+}
+	@Test
+public void findByName() {
+	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:application-context.xml");
+	IRecetteRepository recRepo = context.getBean(IRecetteRepository.class);
+
+	Recette rec1 = new Recette("couscous", "mettre les legumes et le poulet", 5, 200,5F, TypeAlimentation.HALAL);
+	
+Recette rec2 = new Recette("tartiflette", "patate et reblochon", 5, 800,5F, TypeAlimentation.NONE);
+
+Recette rec3 = new Recette("couscous", "mettre les legumes et le poulet", 5, 10,5F, TypeAlimentation.HALAL);
+
+rec1 = recRepo.save(rec1);
+rec2 = recRepo.save(rec2);
+rec3 = recRepo.save(rec3);
+
+
+	List<Recette> recettesParNom = recRepo.findByName("couscous");
+	try {
+		Assert.assertEquals(rec1.getId(), recettesParNom.get(0).getId());
+	} finally {
+		recRepo.delete(rec1);
+	}
+
+}
 }
 
 
