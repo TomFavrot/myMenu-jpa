@@ -33,8 +33,10 @@ public class Recette {
 	private int nombrePers;
 	@Column(name = "total_calories")
 	private int totalCalories;
+	@Column(name = "note")
+	private float note;
 	@Enumerated(EnumType.STRING)
-	//@Column(name = "type_Alimentation")
+	
 	private TypeAlimentation typeAlimentation;
 	
 	@ManyToMany(mappedBy="recettes")
@@ -45,13 +47,23 @@ public class Recette {
 		super();
 	}
 
-	public Recette(String nom, String etapes, int nombrePers, int totalCalories, TypeAlimentation typeAlimentation) {
+	public Recette(String nom, String etapes, int nombrePers, int totalCalories,float note, TypeAlimentation typeAlimentation) {
 		super();
 		this.nom = nom;
 		this.etapes = etapes;
 		this.nombrePers = nombrePers;
 		this.totalCalories = totalCalories;
+		this.note = note;
 		this.typeAlimentation = typeAlimentation;
+		
+	}
+
+	public float getNote() {
+		return note;
+	}
+
+	public void setNote(float note) {
+		this.note = note;
 	}
 
 	public Long getId() {
